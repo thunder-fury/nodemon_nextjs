@@ -20,7 +20,7 @@ const App: React.FC<AppProps> = ({
     let result:string = ''
     const stringArray = pathname.split ('/');
     const prams = stringArray [stringArray.length -1]
-    return result
+    return prams
   }
   return(
     <Provider store={store}>
