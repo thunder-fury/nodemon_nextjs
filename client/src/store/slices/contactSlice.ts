@@ -42,7 +42,8 @@ const contactSlice = createSlice({
     },
     posts:(state:any, action) => {
       const endpoint ='/api/send'
-      submit( endpoint, state, 'thanks')
+      submit( endpoint, state)
+      render('/form/thanks') 
     }
   }
 })

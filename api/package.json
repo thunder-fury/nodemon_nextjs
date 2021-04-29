@@ -15,8 +15,10 @@
     "concurrently": "^6.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mysql": "^2.18.1",
     "nodemailer": "^6.5.0",
     "nodemon": "^2.0.4",
+    "pug": "^3.0.2",
     "random-id": "^1.0.4"
   }
 }

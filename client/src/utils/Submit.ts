@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getApiUrl } from './ApiUrl'
 import { render } from './Router'
-export const submit = async (endpoint:string, state:any , renderPage:string) => {
+export const submit = async ( endpoint:string, state:any ) => {
   const res = await axios.post(getApiUrl() + endpoint, {
     headers: {
       'Content-Type': 'application/json',
@@ -12,7 +12,6 @@ export const submit = async (endpoint:string, state:any , renderPage:string) => 
   })
   .then(res => {
     const STATUS = res.status;
-    console.log(STATUS)
     switch (STATUS) {
       case 400:
         throw Error('400 INVALID_TOKEN');
@@ -27,7 +26,6 @@ export const submit = async (endpoint:string, state:any , renderPage:string) => 
       case 404:
         throw Error('404 NOT_FOUND');
       case 200:
-        render('/form/'+ renderPage);
       default:
         break;
     }
