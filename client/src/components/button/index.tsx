@@ -83,10 +83,10 @@ export const Button: React.FC<ButtonProps> =({
 }) => {
   return(
     <>
-    <Arrow
+    {/* <Arrow
       size={size}
       arrowColor={arrowColor}
-    />
+    /> */}
     <Btn
       className={border? 'is-border': ''}
       data-target={dataTarget}

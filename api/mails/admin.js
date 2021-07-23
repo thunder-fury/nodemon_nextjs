@@ -1,3 +1,5 @@
+const setDate = require('../functions/date');
+
 const adminMail = (req) => {
   const options = {
     from: `${process.env.NODEMAILER_USER}`,
@@ -10,6 +12,7 @@ const adminMail = (req) => {
       
       お名前: ${req.body.name}
       メールアドレス: ${req.body.mail}
+      送信日時: ${setDate}
     `,
   };
   return options;

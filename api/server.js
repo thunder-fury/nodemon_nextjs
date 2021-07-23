@@ -1,53 +1,26 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3090;
-const { adminMail } = require('./mails/admin');
-const { userMail } = require('./mails/user');
-const { transporter } = require('./mails/transporter');
+const { renders } = require('./routes/web');
+const { apis } = require('./routes/apis');
+const { database } = require('./confg/database');
+
+// console.log(database(`topic`));
+//mysql
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//仮ApiData
-const allData = [
-  {
-    id: 1,
-    image: 'https://placeimg.com/64/64/any',
-    name: '山田 二郎',
-    birthday: '19850725',
-    gender: '男性',
-    jab: '会社員',
-  },
-];
+// Load View Engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
-app.use(express.json());
-//メール送信API
-app.post('/api/send', (req, res) => {
-  console.log(req.body);
+//render
+renders(app);
 
-  transporter.sendMail(adminMail(req), (error, info) => {
-    if (error) {
-      console.log(error);
-      res.send('error');
-    } else {
-      console.log('Email sent:' + info.respons);
-      res.send('success');
-    }
-  });
-  transporter.sendMail(userMail(req), (error, info) => {
-    if (error) {
-      console.log(error);
-      res.send('error');
-    } else {
-      console.log('Email sent:' + info.respons);
-      res.send('success');
-    }
-  });
-});
+//api
+apis(app);
 
-app.use(bodyParser.json());
-
-app.get('/api/customers', (req, res) => {
-  res.send(allData);
-});
-
+// Start Server
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -7,7 +7,7 @@ import TextArea from '../../components/form/atoms/TextAreaField'
 import Button from '../../components/button'
 import { Content, ContainerSecondary, BtnContainer } from './../../styles/Global'
 import { allChick, posts } from '../../store/slices/contactSlice'
-import { selectContact, changeTxt } from '../../store/slices/contactSlice'
+import { selectContact, changeTxt,changedInput } from '../../store/slices/contactSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { Color } from '../../styles/Color'
 import { sp } from '../../styles/Media'
@@ -38,27 +38,10 @@ export const Contact: React.FC<props> = ({
 }) => {
   const dispatch = useDispatch()
   let peopleList = useSelector(selectContact)
-  const [userData, setUserData] = useState([])
   const pageInfo = {
     heding: 'お問い合わせ',
     txt: 'お問い合わせ内容をご入力ください。'
   }
-  const saveData = () => {
-    window.sessionStorage.setItem("contactData", JSON.stringify(peopleList));
-  }
-  useEffect(() => {
-    const getFormSession = async () => {
-      let contactDatas:any = sessionStorage.getItem('contactData')
-        if(contactDatas) {
-          setUserData(JSON.parse(contactDatas))
-        }
-      }
-    getFormSession()
-  },[])
-  // console.log(peopleList.info.inquiryType)
-  const onChange = (e:any) => {
-    setUserData(e.target.value);
-  };
   return(
     <>
       <Head
@@ -76,7 +59,14 @@ export const Contact: React.FC<props> = ({
               fildName='お名前'
               validateType='required'
               placeholder=''
-              setData={(e:any) => {onChange(e)}}
+              onChange={(e: any) => {
+                dispatch(changedInput({
+                  value: e.target.value,
+                  type: e.target.getAttribute('data-validate-type'),
+                  key: e.target.getAttribute('data-fild-name'),
+                  target: e.target
+                }));
+              }}
               value={peopleList.info.name}
             />
           </FormItemContainar>
@@ -86,8 +76,16 @@ export const Contact: React.FC<props> = ({
               tagName='必須'
               fildName='メールアドレス' 
               validateType='required email'
-              placeholder='shinseikatsu@xxx.co.jp'
+              placeholder='sample@xxx.co.jp'
               value={peopleList.info.mail}
+              onChange={(e: any) => {
+                dispatch(changedInput({
+                  value: e.target.value,
+                  type: e.target.getAttribute('data-validate-type'),
+                  key: e.target.getAttribute('data-fild-name'),
+                  target: e.target
+                }));
+              }}
             />
           </FormItemContainar>
           <BtnContainer>

@@ -10,7 +10,8 @@ export const Input: React.FC<FormProps> = ({
   validateType,
   placeholder,
   setData,
-  value
+  value,
+  onChange
 }) => {
   // 上書き
   const dispatch = useDispatch()
@@ -25,11 +26,11 @@ export const Input: React.FC<FormProps> = ({
         placeholder={placeholder}
         name={name}
         data-fild-name={fildName}
-        onChange={ (e: any) => { 
-          dispatch(changeTxt({ value:e.target.value,  key:name }));
-          dispatch(changedInput({ value:e.target.value,  type:validateType,  key:fildName, target:e.target }));
-          setData
-        }}
+        onChange={onChange}
+        // onChange={ (e: any) => { 
+        //   dispatch(changeTxt({ value:e.target.value,  key:name }));
+        //   dispatch(changedInput({ value:e.target.value,  type:validateType,  key:fildName, target:e.target }));
+        // }}
         value={value}
         data-validate-type={validateType}
         //dispatch関数の中グローバル関数

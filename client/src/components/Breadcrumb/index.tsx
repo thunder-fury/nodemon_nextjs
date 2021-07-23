@@ -48,7 +48,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
         <BreadcrumbList itemScope itemType="http://data-vocabulary.org/Breadcrumb">
           <TxtLink 
             onClick={() => { render('/')}}
-            itemProp="title">トップページ
+            itemProp="title">top
           </TxtLink>
         </BreadcrumbList>
         {

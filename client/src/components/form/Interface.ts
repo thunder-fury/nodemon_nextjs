@@ -10,4 +10,5 @@ export interface FormProps {
   setData?: any
   value?: string
   selected?: any
+  onChange?: any
 }

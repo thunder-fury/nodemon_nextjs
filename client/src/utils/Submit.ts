@@ -7,8 +7,11 @@ export const submit = async (endpoint:string, state:any , renderPage:string) => 
       'Content-Type': 'application/json',
       'X-Requested-With': 'XMLHttpRequest'
     },
-    name: state.info['name'],
-    mail: state.info['mail'],
+    title: state.info['title'],
+    description: state.info['madescriptionil'],
+    created: state.info['created'],
+    outor: state.info['outor'],
+    profile: state.info['profile'],
   })
   .then(res => {
     const STATUS = res.status;
@@ -27,7 +30,7 @@ export const submit = async (endpoint:string, state:any , renderPage:string) => 
       case 404:
         throw Error('404 NOT_FOUND');
       case 200:
-        render('/form/'+ renderPage);
+        console.log(`成功`)
       default:
         break;
     }

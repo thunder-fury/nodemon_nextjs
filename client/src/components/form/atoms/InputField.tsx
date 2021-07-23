@@ -14,8 +14,8 @@ export const InputField: React.FC<FormProps> =({
   name,
   validateType,
   placeholder,
-  value
-  
+  value,
+  onChange
 }) => {
   return(
     <InputContainer>
@@ -37,6 +37,7 @@ export const InputField: React.FC<FormProps> =({
           validateType={validateType}
           placeholder={placeholder}
           value={value}
+          onChange={onChange}
         />
       </InputWrap>
     </InputContainer>
