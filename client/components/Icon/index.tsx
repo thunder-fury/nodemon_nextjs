@@ -1,0 +1,35 @@
+import styled from '@emotion/styled'
+import { css } from '@emotion/react';
+import { Icons } from '../../styles/Icons'
+
+export interface Props {
+  icon: any
+  color?: string
+  w?: number | string
+  h?: number | string
+}
+
+const Path: any = styled.path<Props>`
+  fill: currentColor;
+  color: ${(props: any) => (props.color)};
+`;
+const Svg: any = styled.svg<Props>`
+  vertical-align: middle;
+  shape-rendering: inherit;
+  transform: translate3d(0, 0, 0);
+`;
+
+export const Icon: React.FC<Props> = ({
+  icon,
+  color,
+  w,
+  h,
+}) => {
+  return (
+    <Svg viewBox="0 0 1024 1024" width={w + "px"} height={h + "px"}>
+      <Path color={color} d={Icons[icon]} />
+    </Svg>
+  );
+};
+
+export default Icon

@@ -35,26 +35,26 @@ const renders = (app) => {
     database().end();
   });
 
-  database().connect();
-  const multer = require('multer');
-  const upload = multer({ dest: `./upload` });
+  // database().connect();
+  // const multer = require('multer');
+  // const upload = multer({ dest: `./upload` });
 
-  // app.use(`/image`, exports.status(`./upload`));
+  // // app.use(`/image`, exports.status(`./upload`));
 
-  app.post(`/api/articles`, upload.single(`image`), (req, res) => {
-    let sql = `SELECT * FROM topic CUSTOMER VALUES (null, ?, ?, ?, ?, ?)`;
-    // let image = `/image/${req.file.filename}`
-    let title = req.body.title;
-    let description = req.body.description;
-    let created = req.body.created;
-    let outor = req.body.outor;
-    let profile = req.body.profile;
-    let params = [title, description, created, outor, profile, params];
-    database().query(sql, params, (err, rows, fields) => {
-      res.send(rows);
-    });
-  });
-  database().end();
+  // app.post(`/api/articles`, upload.single(`image`), (req, res) => {
+  //   let sql = `SELECT * FROM topic CUSTOMER VALUES (null, ?, ?, ?, ?, ?)`;
+  //   // let image = `/image/${req.file.filename}`
+  //   let title = req.body.title;
+  //   let description = req.body.description;
+  //   let created = req.body.created;
+  //   let outor = req.body.outor;
+  //   let profile = req.body.profile;
+  //   let params = [title, description, created, outor, profile, params];
+  //   database().query(sql, params, (err, rows, fields) => {
+  //     res.send(rows);
+  //   });
+  // });
+  // database().end();
 
   // all Data
   app.get(`/api/articles`, (req, res) => {

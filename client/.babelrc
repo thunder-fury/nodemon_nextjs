@@ -1,9 +1,9 @@
 {
-  "presets": ["next/babel"],
+  "presets": [
+    "next/babel",
+    "@emotion/babel-preset-css-prop"
+  ],
   "plugins": [
-    [
-      "styled-components",
-      { "ssr": true, "displayName": true, "preprocess": false }
-    ]
+    ["@emotion"]
   ]
 }
