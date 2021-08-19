@@ -9,7 +9,9 @@ export const Index: React.FC<props> = ({
 }) => {
   return (
     <>
-      <div></div>
+      <div>
+        <img src="http://localhost:3090/image/1627732988172__IMG_5658.JPG" alt="" />
+      </div>
     </>
   )
 }

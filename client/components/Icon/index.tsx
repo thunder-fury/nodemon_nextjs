@@ -5,8 +5,8 @@ import { Icons } from '../../styles/Icons'
 export interface Props {
   icon: any
   color?: string
-  w?: number | string
-  h?: number | string
+  width?: number | string
+  height?: number | string
 }
 
 const Path: any = styled.path<Props>`
@@ -22,11 +22,11 @@ const Svg: any = styled.svg<Props>`
 export const Icon: React.FC<Props> = ({
   icon,
   color,
-  w,
-  h,
+  width,
+  height,
 }) => {
   return (
-    <Svg viewBox="0 0 1024 1024" width={w + "px"} height={h + "px"}>
+    <Svg viewBox="0 0 1024 1024" width={width + "px"} height={height + "px"}>
       <Path color={color} d={Icons[icon]} />
     </Svg>
   );

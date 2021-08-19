@@ -15,12 +15,10 @@ const AppWrap = styled.div`
 `
 // utils
 import store from '../store'
-import { getUserInfo } from '../utils/GetUserInfo'
 //componet
 import Header from '../components/common/header'
 import Footer from '../components/common/footer'
 import Loading from '../components/Loading'
-import Menu from '../components/Menu'
   
 const App: React.FC<AppProps> = ({
   Component,

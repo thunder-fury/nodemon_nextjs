@@ -2,8 +2,6 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { submit } from '../../utils/submit'
 import { formScreen } from '../../utils/FormScreen'
 import { render } from '../../utils/Router'
-import { displayEmptyRequired } from '../../utils/fomCount'
-import { addCookie, getCookie,removeCookie } from '../../utils/Session'
 const userInfo = createSlice({
   // 必須
   name:`user`,
@@ -16,7 +14,6 @@ const userInfo = createSlice({
       companyName: ``,
       password: ``,
       tel: ``,
-      
       
       address: ``,
       postcode: ``,

@@ -1,17 +1,15 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import contactSlice from './slices/contactSlice'
-import loginSlice from './slices/UserSystem'
 import userSlice from './slices/UserSlice'
 import articleSlice from './slices/ArticleSlice'
+import newsSlice from './slices/NewsSlice'
 const middleware:any = getDefaultMiddleware({ serializableCheck: false })
 
 export default configureStore({
   reducer: {
     // 識別する名前: importしてきたReducer名
-    contact: contactSlice,
-    login: loginSlice,
     user: userSlice,
-    article: articleSlice
+    article: articleSlice,
+    news: newsSlice
 
   },
   middleware
