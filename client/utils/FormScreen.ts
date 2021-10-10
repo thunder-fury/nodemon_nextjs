@@ -1,5 +1,3 @@
-import { Validate } from '@wiz-creative/form-validate'
-
 export function formScreen(value:string, validateMethod:string, elm:any) : boolean {
   let validateResult:any = Validate.check(value, validateMethod)
   let errorElm:HTMLElement = elm.parentNode.querySelector('[data-target-error]')

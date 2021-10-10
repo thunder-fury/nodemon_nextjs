@@ -36,22 +36,6 @@ const App: React.FC<AppProps> = ({
     console.log(`Route is changing is complete...`)
     setLoading(false)
   })
-
-  // const [displayNav, setDisplayNav] = useState(false)
-  // useEffect(() => {
-  //   if (!getUserInfo().loginKey && !getUserInfo().userName) {
-  //     Router.push(`/login`)
-  //     setDisplayNav(false)
-  //   } else {
-  //     setDisplayNav(true)
-  //   }
-  //   if (pathName === `/login`) {
-  //     if (getUserInfo().loginKey && getUserInfo().userName) {
-  //       Router.push(`/dashboard`)
-  //     }
-  //   }
-  // }, [pathName])
-
   return (
     <>
       <Provider store={store}>
