@@ -21,7 +21,8 @@
   "homepage": "https://github.com/thunder-fury/nodemon_nextjs#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "yubinbango-core2": "^0.6.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
