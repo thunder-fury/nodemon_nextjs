@@ -1,49 +1,51 @@
 import { css } from '@emotion/react'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import DragDrop from '../../components/Atoms/DragDrop'
 import axios from 'axios'
 export const Update: React.FC = () =>{
   const [img, setImg]:any = useState(null)
   const [title, setTitle] = useState(``)
-  const [fileUrl, setFileUrl]:any = useState(null);
   const onSubmitHandler = async (e:any) => {
     e.preventDefault()
     const formData = new FormData()
     const reader = new FileReader()
-    reader.readAsDataURL(img)
     formData.append(`file`, img)
     formData.append(`title`,title)
     axios.post(`/api/add_update`, formData)
       .then(res => {
         console.log(res)
-
       }).catch(err =>{
         console.log(err)
       })
   }
+  const setImage = (e: any) => {
+    setImg(e.target.files[0])
+  }
+  useEffect(() => {
+    console.log(img)
+  },[img])
   return(
     <form encType="multipart/form-data" method="post">
-      <h1>이미지 추가</h1>
-      <input type="text" name={`title`} onChange={(e) => {setTitle(e.target.value)}} />
-      <img src={fileUrl} alt="" />
-      <input 
-        type="file" 
-        name="file"
-        onChange={(e: any)=>{
-          console.log(e.target.result)
-          setImg(e.target.files[0])}
-        }
+      <h1>UP DATE STUDY</h1>
+      {/* <input type="text" name={`title`} onChange={(e) => {setTitle(e.target.value)}} /> */}
+      <DragDrop 
+        onChange={(e: any)=>{setImage(e)}} 
+        onDragOver={(e: any)=>{setImage(e)}} 
+        onDrop={(e: any)=>{setImage(e)}} 
       />
-      <button 
-        type="submit"
+      <button
+        css={button.elemet}
+        type={`submit`}
         onClick={(e) => {onSubmitHandler(e)}}
-        css={css`
-          background-color: black;
-          padding: 10px;
-          color: white;
-          border-radius: 5px;`
-        }>전송</button>
+        >전송</button>
     </form>
   )
 }
 
+const button = {
+  elemet: css`
+    color: white;
+    background-color: black;
+  `
+}
 export default Update

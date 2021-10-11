@@ -1,3 +1,4 @@
+import { Validate } from '@thunder_fury/form-validate'
 export function formScreen(value:string, validateMethod:string, elm:any) : boolean {
   let validateResult:any = Validate.check(value, validateMethod)
   let errorElm:HTMLElement = elm.parentNode.querySelector('[data-target-error]')
@@ -31,7 +32,7 @@ export function formScreen(value:string, validateMethod:string, elm:any) : boole
   }
 }
 
-Validate.message = {
+Validate.msg = {
   required: '須項目です。',
   email:'{name}の形式が正しくありません。',
   number: '{name}は数字のみでご入力してください。',

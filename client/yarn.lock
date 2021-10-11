@@ -764,6 +764,11 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@thunder_fury/form-validate@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@thunder_fury/form-validate/-/form-validate-0.2.4.tgz#c58ef41bb9f0f7ae5b44783f72a917a0546439fb"
+  integrity sha512-9Enz2cazECYX8TAe6yaN+aS6p1XLjZ7LPbY77BUhONNqyKX6WbtZ800Dc0tXocqzijdXx390T7F0bRkATOgbrQ==
+
 "@types/ckeditor@^4.9.10":
   version "4.9.10"
   resolved "https://registry.yarnpkg.com/@types/ckeditor/-/ckeditor-4.9.10.tgz#f4d252821c52c2b903b21801c8469ead756122b3"
