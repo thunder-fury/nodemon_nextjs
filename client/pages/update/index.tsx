@@ -19,6 +19,7 @@ export const Update: React.FC = () =>{
       })
   }
   const setImage = (e: any) => {
+    console.log(e.tyep)
     setImg(e.target.files[0])
   }
   useEffect(() => {
