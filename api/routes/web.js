@@ -54,90 +54,62 @@ const renders = (app) => {
     database().end();
   });
 
-  app.post( `/api/add_update`, uploadWithOriginalFilename.single('file'),
+  app.get(`/api/get_update_data`, (req, res) => {
+    database().connect();
+    database().query(`SELECT * FROM updateimage`, (error, results, fields) => {
+      res.header(`Cozwntent-Type`, `application/json; charset=utf-8`);
+      error && res.status(500).send('Something broke!');
+      res.status(200).send(results);
+    });
+    database().end();
+  });
+
+  // sign_up
+  app.post(`/api/sign_up`, (req, res) => {
+    const { email, password, user_name } = req.body;
+    const params = [email, password, user_name];
+    const sql = `INSERT INTO member VALUES (null, ?, ?, ?)`;
+    database().connect();
+    database().query(sql, params, (err, rows, fields) => {
+      res.header(`Content-Type`, `application/json; charset=utf-8`);
+      res.status(200).send({ reow: rows });
+    });
+    database().end();
+  });
+  // login
+  app.post(`/api/login`, (req, res) => {
+    const { email, password } = req.body;
+    console.log(email, password);
+    const sql = `SELECT * FROM member WHERE email = ? AND password = ?`;
+    database().connect();
+    database().query(sql, [email, password], (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      }
+      if (result.length > 0) {
+        res.send(result);
+      } else {
+        res.send({ message: `🚫🚨없는 유저입니다 메일아드레스 혹은 패스워드들 다시확인하시고 로그인 해주세요😢` });
+      }
+    });
+    database().end();
+  });
+
+  // Image POST
+  app.post(
+    `/api/add_update`,
+    uploadWithOriginalFilename.single('file'),
     (req, res) => {
-      const sql = `INSERT INTO updateimage VALUES (null, ?, ?)`
+      const sql = `INSERT INTO updateimage VALUES (null, ?, ?)`;
       const title = req.body.title;
       const thumbnail = `image/${req.file.filename}`;
-      const params = [title,thumbnail];
+      const params = [title, thumbnail];
       database().connect();
       database().query(sql, params, (err, rows, fields) => {
         res.header(`Content-Type`, `application/json; charset=utf-8`);
-        res.status(200).send({reow:rows});
-        console.log(rows)
+        res.status(200).send({ reow: rows });
+        console.log(rows);
       });
-      database().end();
-    },
-  );
-
-  app.post(`/api/news`, (req, res) => {
-    console.log(req.body);
-    // const sql = `INSERT INTO news VALUES (null, ?, ?, ?, ?)`;
-    // const title = req.body.title;
-    // const description = req.body.description;
-    // const date = req.body.date;
-    // const thumbnail = `image/${req.body.filename}`
-    // const params = [title, description, date, thumbnail];
-    // database().connect();
-    // database().query(sql, params,
-    //   (err, rows, fields) => {
-    //     res.header(`Content-Type`, `application/json; charset=utf-8`);
-    //     res.send(rows);
-    //   });
-    // database().end();
-  });
-
-  // all Data
-  app.get(`/api/articles`, (req, res) => {
-    // api/articles로 접속할경우 총 데이터를 반환
-    database().connect();
-    database().query(`SELECT * FROM topic`, (error, results, fields) => {
-      res.header(`Content-Type`, `application/json; charset=utf-8`);
-      error && res.status(500).send('Something broke!');
-      res.status(200).send(results);
-    });
-    database().end();
-  });
-
-  app.get(`/api/users`, (req, res) => {
-    // api/users 접속할경우 총 데이터를 반환
-    database().connect();
-    database().query(`SELECT * FROM users`, (error, results, fields) => {
-      res.header(`Content-Type`, `application/json; charset=utf-8`);
-      error && res.status(500).send('Something broke!');
-      res.status(200).send(results);
-    });
-    database().end();
-  });
-
-  app.post(
-    `/api/users_add`,
-    uploadWithOriginalFilename.single('file_img'),
-    (req, res) => {
-      console.log(res.body);
-      let sql = `INSERT INTO user VALUES (null, ?, ?, ?, ?, ?, ?, ?)`;
-      let image = `image/`;
-      let user_name = req.body.user_name;
-      let date_created = req.body.date_created;
-      let user_id = req.body.user_id;
-      let mail_address = req.body.mail_address;
-      let gender = req.body.gender;
-      let user_profile = req.body.user_profile;
-      let params = [
-        image,
-        user_name,
-        date_created,
-        user_id,
-        mail_address,
-        gender,
-        user_profile,
-      ];
-      database().connect();
-      database().query(sql, params, (err, rows, fields) => {
-        res.send(rows);
-      });
-      res.status(200).send({ messege: `success` });
-      console.log(`送信`);
       database().end();
     },
   );

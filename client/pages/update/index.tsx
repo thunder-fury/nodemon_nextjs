@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 import React, { useEffect, useState } from 'react'
 import DragDrop from '../../components/Atoms/DragDrop'
-import axios from 'axios'
+import Axios from 'axios'
 export const Update: React.FC = () =>{
   const [img, setImg]:any = useState(null)
   const [title, setTitle] = useState(``)
@@ -9,9 +9,10 @@ export const Update: React.FC = () =>{
     e.preventDefault()
     const formData = new FormData()
     const reader = new FileReader()
+    console.log(reader)
     formData.append(`file`, img)
     formData.append(`title`,title)
-    axios.post(`/api/add_update`, formData)
+    Axios.post(`/api/add_update`, formData)
       .then(res => {
         console.log(res)
       }).catch(err =>{
@@ -28,7 +29,15 @@ export const Update: React.FC = () =>{
   return(
     <form encType="multipart/form-data" method="post">
       <h1>UP DATE STUDY</h1>
-      {/* <input type="text" name={`title`} onChange={(e) => {setTitle(e.target.value)}} /> */}
+      <div>
+        <label htmlFor={`title`}></label>       
+        <input 
+          id={`title`}
+          type={`text`}
+          name={`title`}
+          onChange={(e) => {setTitle(e.target.value)}} 
+        />
+      </div>
       <DragDrop 
         onChange={(e: any)=>{setImage(e)}} 
         onDragOver={(e: any)=>{setImage(e)}} 

@@ -21,15 +21,9 @@ export const Header: React.FC<Props> = ({
   return (
     <>
       <header>
-        {/* <div css={btnContainer}>
-          {headerBtn}
-        </div> */}
-      </header>
-      {pathName != '/login' && (
         <div css={Title.box}>
-          {/* <Breadcrumb page={stringSlice().toUpperCase()} /> */}
         </div>
-      )}
+      </header>
     </>
   )
 }

@@ -132,10 +132,10 @@ const DragDrop: React.FC<Props> = ({onChange, onDragOver, onDrop}) => {
 
       <label
         className={isDragging ? "DragDrop-File-Dragging" : "DragDrop-File"}
-        htmlFor="fileUpload"
+        htmlFor={`fileUpload`}
         ref={dragRef}
       >
-        <div css={dragDrop.label}>파일 을 드래그 하세요~</div>
+        <div css={dragDrop.label}>파일을 선택하세요</div>
       </label>
 
       <div css={dragDrop.files} className="DragDrop-Files">

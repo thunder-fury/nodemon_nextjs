@@ -15,6 +15,7 @@ export default configureStore({
   middleware
 })
 
+
 // if(process.env.NODE_ENV === 'development' && module.hot) {
 //   module.hot.accept('./rootRed', () => {
 //     const newRootReducer = require('./rootReducer').default
