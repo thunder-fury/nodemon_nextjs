@@ -44,7 +44,7 @@ export const Reset = css`
     display: flex;
     flex-wrap: wrap;
   }
-  
+
   select,
   input,
   textarea {
@@ -164,7 +164,7 @@ fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
 legend {
-  box-sizing: border-box; 
+  box-sizing: border-box;
   color: inherit;
   display: table;
   max-width: 100%;
@@ -194,7 +194,7 @@ textarea {
   -webkit-appearance: none;
 }
 ::-webkit-file-upload-button {
-  -webkit-appearance: button; 
+  -webkit-appearance: button;
   font: inherit;
 }
 details {

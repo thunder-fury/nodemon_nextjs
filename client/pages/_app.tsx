@@ -6,6 +6,7 @@ import Router, { useRouter } from 'next/router'
 import GlobalStyle from '../styles/GlobalStyle'
 import styled from '@emotion/styled'
 import { Media } from '../styles/Variables'
+
 const AppWrap = styled.div`
   ${Media.mq}{
     &.padding{
@@ -19,7 +20,7 @@ import store from '../store'
 import Header from '../components/common/header'
 import Footer from '../components/common/footer'
 import Loading from '../components/Loading'
-  
+
 const App: React.FC<AppProps> = ({
   Component,
   pageProps,

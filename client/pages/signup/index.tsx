@@ -28,7 +28,7 @@ export const SignUp = () => {
     <>
       <h1>Sign Up</h1>
       <div>
-        <label htmlFor={`user_email`}>메일 : </label>
+        <label htmlFor={`user_email`}>Mail Address : </label>
         <input
           id={`user_email`} 
           type={`email`}
@@ -40,12 +40,12 @@ export const SignUp = () => {
       </div>
       <br />
       <div>
-        <label htmlFor={`user_name`}>닉네임 : </label>
+        <label htmlFor={`user_name`}>User Name : </label>
         <input 
           id={`user_name`} 
           type={`text`} 
           name={`user_name`}
-          placeholder={`닉네임`}
+          placeholder={``}
           onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
             setUserName(e.target.value)
           }}
@@ -53,7 +53,7 @@ export const SignUp = () => {
       </div>
       <br />
       <div>
-        <label htmlFor={`password`}>패스워드 : </label>
+        <label htmlFor={`password`}>password : </label>
         <input 
           id={`password`}
           name={`password`}
@@ -73,7 +73,7 @@ export const SignUp = () => {
         `}
         onClick={submit}
       >
-        회원가입
+      Sign Up
       </button>
     </>
       

@@ -7,6 +7,7 @@ const userInfo = createSlice({
   name:`user`,
   // fromData Object
   initialState: {
+    data: ``,
     info: {
       firstName: ``,
       lastName: ``,
@@ -14,7 +15,7 @@ const userInfo = createSlice({
       companyName: ``,
       password: ``,
       tel: ``,
-      
+
       address: ``,
       postcode: ``,
       prefecture: ``,
@@ -27,8 +28,10 @@ const userInfo = createSlice({
   },
   //global function
   reducers: {
-    setVal: (state:any, action) => {
-      state.info[action.payload.key] = action.payload.value //←更新する新しい値
+    setVal: (state: any, action) => {
+      // state.info[action.payload.key] = action.payload.value //←更新する新しい値
+      console.log(action.payload)
+      state.data = action.payload //←更新する新しい値
     },
     changedInput: (state, action) => {
       // let validateResult:any = Validate.check(action.payload.value, action.payload.type)
@@ -61,5 +64,6 @@ const userInfo = createSlice({
 })
 export const { setVal, changedInput, allCheck, posts } = userInfo.actions //関数を呼び出すためのexport
 export const userDetails = (state: any) => state.user //stateObj呼び出すためのexport
+export const userName = (state: any) => state.userName //stateObj呼び出すためのexport
 export default userInfo.reducer //必須
 
