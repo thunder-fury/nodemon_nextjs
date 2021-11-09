@@ -30,7 +30,6 @@ const userInfo = createSlice({
   reducers: {
     setVal: (state: any, action) => {
       // state.info[action.payload.key] = action.payload.value //←更新する新しい値
-      console.log(action.payload)
       state.data = action.payload //←更新する新しい値
     },
     changedInput: (state, action) => {

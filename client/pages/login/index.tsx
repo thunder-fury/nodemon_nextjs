@@ -6,14 +6,13 @@ export const Login = () => {
   const [ userPassword, setUserPassword] = useState(``)
   const [ loginStatus, setLoginStatus] = useState(``)
   const login = async () => {
-    await Axios.post(`/api/login`, { 
+    await Axios.post(`/api/login`, {
       email: userEmeil,
       password: userPassword,
     }).then(res => {
       if(res.data.message) {
         setLoginStatus(res.data.message)
       } else {
-        console.log(res)
         setLoginStatus(`${res.data[0].user_name}님 로그인 되었습니다`)
       }
     })
@@ -32,7 +31,7 @@ export const Login = () => {
       <div>
         <label htmlFor={`user_email`}>메일 : </label>
         <input
-          id={`user_email`} 
+          id={`user_email`}
           type={`email`}
           name={`user_email`}
           onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +42,7 @@ export const Login = () => {
       <br />
       <div>
         <label htmlFor={`password`}>패스워드 : </label>
-        <input 
+        <input
           id={`password`}
           name={`password`}
           type={`password`}

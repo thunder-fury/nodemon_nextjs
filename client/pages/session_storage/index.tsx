@@ -1,3 +1,4 @@
+import { SERVFAIL } from "dns";
 import { useState, useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,34 +13,35 @@ interface IFormInput {
   firstName: String;
   gender: any;
   lastName: String
+  test: any
 }
 
 
 export const SessionStorage = () => {
-  const { register, handleSubmit } = useForm<IFormInput>();
+  const { register, handleSubmit, setValue } = useForm<IFormInput>();
   const [sesstionData, setSesstionData]: any = useState(``)
   const details = useSelector(userDetails)
   const dispatch = useDispatch()
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    localStorage.setItem('data', JSON.stringify(data))
+    sessionStorage.setItem('form', JSON.stringify(data))
+    console.log(data)
   }
   // const dispatch = useDispatch(function)
   useEffect(() => {
-    const testData: any = localStorage.getItem('data');
-    const testDataObj = JSON.parse(testData);
-    console.log(testDataObj.firstName)
-    dispatch(setVal(testDataObj.firstName))
-    console.log(details.data)
+    const testData: any = sessionStorage.getItem('form');
+    const testDataObj = JSON.parse(testData)
+    setValue('test', testDataObj)
+    dispatch(setVal(testDataObj))
   }, [])
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <label>First Name</label>
-      <input {...register("firstName")} defaultValue={details.data}/>
+      <input {...register("firstName")} defaultValue={details.data.firstName}/>
       <br />
       <label>Last Name</label>
-      <input {...register("lastName")} />
+      <input {...register("lastName")} defaultValue={details.data.lastName}/>
       <label>Gender Selection</label>
-      <select {...register("gender")} >
+      <select {...register("gender")} defaultValue={1} >
         <option value="">---</option>
         <option value="1">female</option>
         <option value="2">male</option>
