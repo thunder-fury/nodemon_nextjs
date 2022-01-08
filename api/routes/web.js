@@ -69,10 +69,9 @@ const renders = (app) => {
     const { email, password, user_name } = req.body;
     // SELECT * FROM 데이터베이스명
     database().query(`SELECT * FROM member`, (error, results, fields) => {
-      console.log(results)
       const id = results.some((e) => e.email === email)
       if(id) {
-        res.status(500).send({ messge: `存在しているIDです。` });
+        res.status(500).send({ status: 500, messge: `存在しているIDです。再度ご確認の上サインアップしてください。` });
       } else {
         if(email && password && user_name) {
           const params = [email, password, user_name];
@@ -84,7 +83,7 @@ const renders = (app) => {
           });
           database().end();
         } else {
-          res.status(500).send({ messge: `サーバーエラー` });
+          res.status(500).send({ messge: `サーバーエラーです。` });
         }
       }
     });
