@@ -9,7 +9,7 @@ const options = {
   },
   scales: {
     yAxes: [{
-      ticks: { 
+      ticks: {
         min: 0, // y축 스케일에 대한 최소값 설정
         stepSize: 2, // y축 그리드 한 칸당 수치
       }
@@ -17,7 +17,7 @@ const options = {
   },
   // false : 사용자 정의 크기에 따라 그래프 크기가 결정됨.
   // true : 크기가 알아서 결정됨.
-  // maintainAspectRatio: false 
+  // maintainAspectRatio: false
 }
 
 const data = {

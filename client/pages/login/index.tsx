@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Axios from 'axios'
 import { css } from '@emotion/react'
+import { Box, Button, ButtonGroup, CardHeader, TextField } from '@material-ui/core'
 export const Login = () => {
   const [ userEmeil, setUserEmail] = useState(``)
   const [ userPassword, setUserPassword] = useState(``)
@@ -21,48 +22,48 @@ export const Login = () => {
       // })
   }
   return (
-    <div css={css`
-      max-width: 300px;
-      width: 100%;
-      margin: 0 auto;
-    `}>
+    <div>
     <>
       <h1>Login</h1>
-      <div>
-        <label htmlFor={`user_email`}>메일 : </label>
-        <input
-          id={`user_email`}
-          type={`email`}
-          name={`user_email`}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
-          setUserEmail(e.target.value)
-          }}
-        />
-      </div>
-      <br />
-      <div>
-        <label htmlFor={`password`}>패스워드 : </label>
-        <input
-          id={`password`}
-          name={`password`}
-          type={`password`}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => {
-            setUserPassword(e.target.value)
-          }}
-        />
-      </div>
-      <button
-        css={css`
-          text-align: center;
-          background: black;
-          color: white;
-          padding: 5px;
-          margin-top: 10px;
-        `}
-        onClick={login}
-      >
-        회원가입
-      </button>
+        <Box
+          display={`flex`}
+          justifyContent={`center`}
+        >
+          <Box
+            width={500}
+            display={`flex`}
+            flexDirection={`column`}
+          >
+            <TextField
+              fullWidth
+              id={`outlined-basic`}
+              label={`email`}
+              variant={`outlined`}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setUserEmail(e.target.value)
+              }}
+            />
+            <br />
+            <TextField
+              fullWidth
+              id={`outlined-basic`}
+              label={`password`}
+              type={`password`}
+              variant={`outlined`}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setUserPassword(e.target.value)
+              }}
+            />
+            <br />
+          </Box>
+        </Box>
+        <Box display={`flex`} justifyContent={`center`} mt={2}>
+          <Box width={400} >
+            <ButtonGroup fullWidth variant={`contained`} aria-label={`outlined primary button group`}>
+              <Button size={`large`} color={`primary`} fullWidth onClick={login}>Login</Button>
+            </ButtonGroup>
+          </Box>
+        </Box>
     </>
     {loginStatus && (
       <p>{loginStatus}</p>

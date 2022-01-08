@@ -40,7 +40,7 @@ const App: React.FC<AppProps> = ({
   return (
     <>
       <Provider store={store}>
-        <GlobalStyle />
+        {/* <GlobalStyle /> */}
           <Header />
           <Component {...pageProps} />
           <Footer />

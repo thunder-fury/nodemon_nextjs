@@ -4,6 +4,8 @@ import { Title } from '../../../styles/common'
 // Store
 import { useDispatch, useSelector } from 'react-redux'
 import { userDetails } from '../../../store/slices/UserSlice'
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core'
+import MenuIcon from "@material-ui/icons/Menu"
 //utils
 
 // component
@@ -17,13 +19,24 @@ export const Header: React.FC<Props> = ({
   let peopleList = useSelector(userDetails)
   const router = useRouter();
   const pathName = router.pathname
-  
+
   return (
     <>
-      <header>
-        <div css={Title.box}>
-        </div>
-      </header>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6">
+            News
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
     </>
   )
 }
