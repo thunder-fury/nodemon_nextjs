@@ -2,35 +2,31 @@ import { useState } from 'react'
 import Axios from 'axios'
 import { Box, Button, ButtonGroup, CardHeader, TextField } from '@material-ui/core'
 import { css } from '@emotion/react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAsyncSignup, signupError, signupMaster } from '../stores/slices/signupSlice'
 export const SignUp = () => {
   const [ userEmeil, setUserEmail] = useState(``)
   const [ userPassword, setUserPassword] = useState(``)
   const [ userName, setUserName] = useState(``)
-
+  const dispatch = useDispatch()
+  const _signupError = useSelector(signupError)
+  console.log(_signupError)
   const submit = async () => {
-    console.log(userPassword,userEmeil )
-    await Axios.post(`/api/sign_up`, {
+    const data = {
       email: userEmeil,
       password: userPassword,
       user_name: userName
-    })
-      .then(res => {
-        console.log(res)
-      }).catch(err =>{
-        console.log(err)
-      })
+    }
+    dispatch(fetchAsyncSignup(data))
   }
   return (
     <>
       <h1>SignUp</h1>
       <Box
-        display={`flex`}
-        justifyContent={`center`}
+        sx={{ display: 'flex', justifyContent: 'center' }}
       >
         <Box
-          width={500}
-          display={`flex`}
-          flexDirection={`column`}
+          sx={{ width: 500, display: 'flex', flexDirection: 'column' }}
         >
           <TextField
             fullWidth
@@ -64,12 +60,15 @@ export const SignUp = () => {
           />
         </Box>
       </Box>
-      <Box  display={`flex`} justifyContent={`center`} mt={2}>
-      <Box width={400} >
+      <Box sx={{ display: 'flex', justifyContent: 'center', m: 2 }}>
+        <Box sx={{width: 400}} >
         <ButtonGroup fullWidth variant={`contained`} aria-label={`outlined primary button group`}>
           <Button size={`large`} color={`primary`} fullWidth onClick={submit}>Signup</Button>
         </ButtonGroup>
       </Box>
+      </Box>
+      <Box sx={{ m: 2, textAlign: `center` }}>
+        {_signupError && _signupError}
       </Box>
     </>
   )
