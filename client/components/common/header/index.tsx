@@ -3,7 +3,6 @@ import Router, { useRouter } from 'next/router'
 import { Title } from '../../../styles/common'
 // Store
 import { useDispatch, useSelector } from 'react-redux'
-import { userDetails } from '../../../store/slices/UserSlice'
 import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core'
 import MenuIcon from "@material-ui/icons/Menu"
 //utils
@@ -16,7 +15,6 @@ export const Header: React.FC<Props> = ({
   userName
 }) => {
   const dispatch = useDispatch()
-  let peopleList = useSelector(userDetails)
   const router = useRouter();
   const pathName = router.pathname
 
