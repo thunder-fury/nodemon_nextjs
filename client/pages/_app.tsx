@@ -15,8 +15,8 @@ const AppWrap = styled.div`
   }
 `
 // utils
-import store from '../store'
 //componet
+import store from './stores/store'
 import Header from '../components/common/header'
 import Footer from '../components/common/footer'
 import Loading from '../components/Loading'
