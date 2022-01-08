@@ -1,5 +1,5 @@
 const { database } = require('./../confg/database');
-
+const { login } = require('./login');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -67,34 +67,30 @@ const renders = (app) => {
   // sign_up
   app.post(`/api/sign_up`, (req, res) => {
     const { email, password, user_name } = req.body;
-    const params = [email, password, user_name];
-    const sql = `INSERT INTO member VALUES (null, ?, ?, ?)`;
-    database().connect();
-    database().query(sql, params, (err, rows, fields) => {
-      res.header(`Content-Type`, `application/json; charset=utf-8`);
-      res.status(200).send({ reow: rows });
+    // SELECT * FROM 데이터베이스명
+    database().query(`SELECT * FROM member`, (error, results, fields) => {
+      console.log(results)
+      const id = results.some((e) => e.email === email)
+      if(id) {
+        res.status(500).send({ messge: `存在しているIDです。` });
+      } else {
+        if(email && password && user_name) {
+          const params = [email, password, user_name];
+          const sql = `INSERT INTO member VALUES (null, ?, ?, ?)`;
+          database().connect();
+          database().query(sql, params, (err, rows, fields) => {
+            res.header(`Content-Type`, `application/json; charset=utf-8`);
+            res.status(200).send({ reow: rows });
+          });
+          database().end();
+        } else {
+          res.status(500).send({ messge: `サーバーエラー` });
+        }
+      }
     });
-    database().end();
   });
   // login
-  app.post(`/api/login`, (req, res) => {
-    const { email, password } = req.body;
-    console.log(email, password);
-    const sql = `SELECT * FROM member WHERE email = ? AND password = ?`;
-    database().connect();
-    database().query(sql, [email, password], (err, result) => {
-      if (err) {
-        res.send({ err: err });
-      }
-      if (result.length > 0) {
-        res.send(result);
-      } else {
-        res.send({ message: `🚫🚨없는 유저입니다 메일아드레스 혹은 패스워드들 다시확인하시고 로그인 해주세요😢` });
-      }
-    });
-    database().end();
-  });
-
+  login(app)
   // Image POST
   app.post(
     `/api/add_update`,
