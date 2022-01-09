@@ -1,5 +1,6 @@
 const { database } = require('./../confg/database');
 const { login } = require('./login');
+const { signUp } = require('./signUp');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -65,29 +66,7 @@ const renders = (app) => {
   });
 
   // sign_up
-  app.post(`/api/sign_up`, (req, res) => {
-    const { email, password, user_name } = req.body;
-    // SELECT * FROM 데이터베이스명
-    database().query(`SELECT * FROM member`, (error, results, fields) => {
-      const id = results.some((e) => e.email === email)
-      if(id) {
-        res.status(500).send({ status: 500, messge: `存在しているIDです。再度ご確認の上サインアップしてください。` });
-      } else {
-        if(email && password && user_name) {
-          const params = [email, password, user_name];
-          const sql = `INSERT INTO member VALUES (null, ?, ?, ?)`;
-          database().connect();
-          database().query(sql, params, (err, rows, fields) => {
-            res.header(`Content-Type`, `application/json; charset=utf-8`);
-            res.status(200).send({ reow: rows });
-          });
-          database().end();
-        } else {
-          res.status(500).send({ messge: `サーバーエラーです。` });
-        }
-      }
-    });
-  });
+  signUp(app)
   // login
   login(app)
   // Image POST
