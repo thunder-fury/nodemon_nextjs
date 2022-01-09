@@ -1,6 +1,6 @@
 export const Color = {
   black: `#000000`,
-  
+
   white: `#ffffff`,
   red: `#FF0000`,
 
@@ -15,9 +15,9 @@ export const Color = {
   gray5: `#F4F4F4`,
   gray6: `#8F8F8F`,
 
-  shadow: `rgb(0 0 0 / 3%)`
-};
+  shadow: `rgb(0 0 0 / 3%)`,
+}
 
 export const Media = {
-  mq:`@media (min-width: 767px)`,
+  mq: `@media (min-width: 767px)`,
 }

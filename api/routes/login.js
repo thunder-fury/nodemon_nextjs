@@ -11,14 +11,14 @@ const login = (app) => {
         )
         console.log(results)
         if(check) {
-          res.status(200).send({ message: `WellCome` });
+          res.status(200).send({ status: 200, success_messge: `Hello👋` });
         } else {
-          res.status(500).send({ message: `🚫🚨없는 유저입니다 메일아드레스 혹은 패스워드들 다시확인하시고 로그인 해주세요😢` });
+          res.status(500).send({ status: 500, error_messge: `🚫🚨없는 유저입니다 메일아드레스 혹은 패스워드들 다시확인하시고 로그인 해주세요😢` });
         }
       })
       database().end()
     } else {
-      res.status(500).send({ message: `サーバーエラーです。入力のミスがないかご確認の上登録してください🙏🏻` });
+      res.status(500).send({ status: 500, error_messge: `サーバーエラーです。入力のミスがないかご確認の上登録してください🙏🏻` });
     }
     // const sql = `SELECT * FROM member WHERE email = ? AND password = ?`;
   });

@@ -1,6 +1,6 @@
-import { FIXME } from "./Any";
+import { FIXME } from './Any'
 
 export type MenuType = {
-  pathName: string;
-  loginMaster: FIXME;
-};
+  pathName: string
+  loginMaster: FIXME
+}

@@ -1,4 +1,4 @@
 export type DashboardType = {
-  name?: string;
-  subName?: string;
-};
+  name?: string
+  subName?: string
+}

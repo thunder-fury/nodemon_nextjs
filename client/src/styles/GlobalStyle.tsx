@@ -1,4 +1,6 @@
 import { Global, css } from '@emotion/react'
+import { ReactChildren, ReactChild } from 'react'
+import { FIXME } from '../types/Any'
 import { Reset } from './Reset'
 import { Color } from './Variables'
 // grobal-css
@@ -20,7 +22,7 @@ const globalStyle = css`
   select::-ms-expand {
     display: none;
   }
-  
+
   button {
     outline: none;
     font-family: sans-serif;
@@ -35,7 +37,7 @@ const globalStyle = css`
   }
 `
 
-const GlobalStyle: React.FC = ({ children }) => {
+const GlobalStyle: React.FC = ({ children }: FIXME) => {
   return (
     <div>
       <Global styles={globalStyle} />

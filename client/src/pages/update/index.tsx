@@ -2,20 +2,21 @@ import { css } from '@emotion/react'
 import React, { useEffect, useState } from 'react'
 import DragDrop from '../../components/Atoms/DragDrop'
 import Axios from 'axios'
-export const Update: React.FC = () =>{
-  const [img, setImg]:any = useState(null)
+export const Update: React.FC = () => {
+  const [img, setImg]: any = useState(null)
   const [title, setTitle] = useState(``)
-  const onSubmitHandler = async (e:any) => {
+  const onSubmitHandler = async (e: any) => {
     e.preventDefault()
     const formData = new FormData()
     const reader = new FileReader()
     console.log(reader)
     formData.append(`file`, img)
-    formData.append(`title`,title)
+    formData.append(`title`, title)
     Axios.post(`/api/add_update`, formData)
-      .then(res => {
+      .then((res) => {
         console.log(res)
-      }).catch(err =>{
+      })
+      .catch((err) => {
         console.log(err)
       })
   }
@@ -24,8 +25,8 @@ export const Update: React.FC = () =>{
   }
   useEffect(() => {
     console.log(img)
-  },[img])
-  return(
+  }, [img])
+  return (
     <form encType="multipart/form-data" method="post">
       <h1>UP DATE STUDY</h1>
       <div>
@@ -34,19 +35,31 @@ export const Update: React.FC = () =>{
           id={`title`}
           type={`text`}
           name={`title`}
-          onChange={(e) => {setTitle(e.target.value)}}
+          onChange={(e) => {
+            setTitle(e.target.value)
+          }}
         />
       </div>
       <DragDrop
-        onChange={(e: any)=>{setImage(e)}}
-        onDragOver={(e: any)=>{setImage(e)}}
-        onDrop={(e: any)=>{setImage(e)}}
+        onChange={(e: any) => {
+          setImage(e)
+        }}
+        onDragOver={(e: any) => {
+          setImage(e)
+        }}
+        onDrop={(e: any) => {
+          setImage(e)
+        }}
       />
       <button
         css={button.elemet}
         type={`submit`}
-        onClick={(e) => {onSubmitHandler(e)}}
-        >전송</button>
+        onClick={(e) => {
+          onSubmitHandler(e)
+        }}
+      >
+        전송
+      </button>
     </form>
   )
 }
@@ -55,6 +68,6 @@ const button = {
   elemet: css`
     color: white;
     background-color: black;
-  `
+  `,
 }
 export default Update

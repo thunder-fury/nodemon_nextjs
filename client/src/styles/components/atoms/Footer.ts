@@ -1,16 +1,16 @@
 import { css } from '@emotion/react'
 import { Media } from '../../Variables'
 import { Color } from '../../Variables'
-export const footer ={
+export const footer = {
   container: css`
     box-shadow: 0px -7px 44px ${Color.shadow};
     display: block;
     height: initial;
     padding: 30px 0;
-  ${Media.mq} {
-    text-align: center;
-    margin-top: 60px;
-  }
+    ${Media.mq} {
+      text-align: center;
+      margin-top: 60px;
+    }
   `,
   inner: css`
     width: 100%;
@@ -23,6 +23,5 @@ export const footer ={
     width: 226px;
     margin: 0 auto;
   `,
-  company: css`
-  `
+  company: css``,
 }

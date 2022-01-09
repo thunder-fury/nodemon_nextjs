@@ -1,3 +1,3 @@
 export type HeaderType = {
-  pathName: string;
-};
+  pathName: string
+}

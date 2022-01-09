@@ -1,8 +1,8 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import loginReducer from "./slices/loginSlice";
-import signUpReducer from "./slices/signupSlice";
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import loginReducer from './slices/loginSlice'
+import signUpReducer from './slices/signupSlice'
 
-const middleware = getDefaultMiddleware({ serializableCheck: false });
+const middleware = getDefaultMiddleware({ serializableCheck: false })
 
 const store = configureStore({
   reducer: {
@@ -10,8 +10,8 @@ const store = configureStore({
     signup: signUpReducer,
   },
   middleware,
-});
+})
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>
 
-export default store;
+export default store

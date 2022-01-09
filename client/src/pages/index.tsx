@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 import { Graph } from '../components/Atoms/Graph'
 import axios from 'axios'
-interface props { }
 
 const options = {
   legend: {
     display: false, // label 보이기 여부
   },
   scales: {
-    yAxes: [{
-      ticks: {
-        min: 0, // y축 스케일에 대한 최소값 설정
-        stepSize: 2, // y축 그리드 한 칸당 수치
-      }
-    }]
+    yAxes: [
+      {
+        ticks: {
+          min: 0, // y축 스케일에 대한 최소값 설정
+          stepSize: 2, // y축 그리드 한 칸당 수치
+        },
+      },
+    ],
   },
   // false : 사용자 정의 크기에 따라 그래프 크기가 결정됨.
   // true : 크기가 알아서 결정됨.
@@ -65,12 +66,9 @@ const data = {
       pointRadius: 1,
       pointHitRadius: 50,
       data: [63, 1, 80, 81, 56, 55, 40],
-    }
-  ]
-};
-
-
-
+    },
+  ],
+}
 
 export const Index: React.FC = () => {
   useEffect(() => {
@@ -79,10 +77,10 @@ export const Index: React.FC = () => {
       console.log(res)
     }
     gatData()
-  },[])
+  }, [])
   return (
     <>
-      <Graph data={data} options={(options as any)}/>
+      <Graph data={data} options={options as any} />
     </>
   )
 }

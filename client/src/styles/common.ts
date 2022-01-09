@@ -2,7 +2,6 @@ import { Color } from './Variables'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-
 export const btnContainer = css`
   max-width: 200px;
   width: 100%;
@@ -20,7 +19,5 @@ export const Title = {
     font-size: 1.5rem;
     font-style: italic;
   `,
-  txt: css`
-  
-  `
+  txt: css``,
 }

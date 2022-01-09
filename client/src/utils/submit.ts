@@ -7,26 +7,26 @@ import { render } from './Router'
 //   operateCookie.set(`loginToken`, tokenKey, maxAge)
 // }
 
-export const submit = async ( endpoint:string, formData: any ) => {
+export const submit = async (endpoint: string, formData: any) => {
   const method = `POST`
   const body = JSON.stringify(formData)
   const headers = {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     // 'Content-Type': 'application/json'
-    'Content-Type': 'multipart/form-data'
+    'Content-Type': 'multipart/form-data',
     // Accept: 'application/json',
     // 'Access-Control-Allow-Origin': '*',
     // 'Content-Type': 'multipart/form-data',
   }
   try {
-    const req = await fetch(endpoint,{ method, body, headers})
+    const req = await fetch(endpoint, { method, body, headers })
       .then((res) => {
         return res.json()
-      }).then((data)  => {
-        console.log(data);
+      })
+      .then((data) => {
+        console.log(data)
       })
   } catch (error) {
     console.log(error)
   }
-
 }

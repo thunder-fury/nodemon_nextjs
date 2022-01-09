@@ -2,9 +2,9 @@ import { css } from '@emotion/react'
 
 export const pageNation = {
   center: css`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
   `,
   link: css`
     display: flex;
@@ -15,7 +15,7 @@ export const pageNation = {
     width: 40px;
     font-weight: bold;
   `,
-  ul :css`
+  ul: css`
     display: flex;
     list-style: none;
     padding: 0;
@@ -27,5 +27,5 @@ export const pageNation = {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 20px;
-  `
+  `,
 }

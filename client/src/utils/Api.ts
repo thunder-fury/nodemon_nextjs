@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export const getFetch = (url: string): Promise<any> => {
   const options = {
     method: 'GET',

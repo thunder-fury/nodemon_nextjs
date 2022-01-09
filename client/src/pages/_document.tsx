@@ -1,5 +1,5 @@
-import React from "react";
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import React from 'react'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 // import { ServerStyleSheets } from "@material-ui/styles";
 
 class MyDocument extends Document {
@@ -12,7 +12,7 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
@@ -36,4 +36,4 @@ class MyDocument extends Document {
 //   };
 // };
 
-export default MyDocument;
+export default MyDocument
