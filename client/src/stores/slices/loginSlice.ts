@@ -5,7 +5,6 @@ import Router from 'next/router'
 import { FIXME } from '../../types/Any'
 import { addSesstion, getSesstion, removeSesstion } from '../../utils/Sesstion'
 import { FetchPost } from '../../utils/Api'
-
 export const fetchAsyncLogin = createAsyncThunk(
   'login/post',
   async (data: FIXME) => {
@@ -38,6 +37,9 @@ const loginSlice = createSlice({
     })
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
+        const { token, role } = action.payload
+        addSesstion(`authInfo`, token)
+        addSesstion(`role`, role)
         Router.push(`/my_page`)
       } else if (action.payload.status === 500) {
         state.res = action.payload

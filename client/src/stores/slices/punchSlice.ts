@@ -4,18 +4,18 @@ import Router from 'next/router'
 
 import { FIXME } from '../../types/Any'
 import { addSesstion, getSesstion, removeSesstion } from '../../utils/Sesstion'
-import { getFetch } from '../../utils/Api'
+import { FetchGet } from '../../utils/Api'
 
 export const fetchAsyncPunch = createAsyncThunk(
-  'punch/post',
+  'punch/get',
   async (id: FIXME) => {
-    const res = await getFetch(`/api/punch/${id}`)
+    const res = await FetchGet({ endPoint: `/api/punch/${id}` })
     return res
   }
 )
 
 const punchSlice = createSlice({
-  name: `login`,
+  name: `punch`,
   initialState: {
     loading: false,
     status: false,
@@ -25,7 +25,6 @@ const punchSlice = createSlice({
   },
   reducers: {
     setVal: (state: FIXME, action) => {
-      console.log(action)
       state[action.payload.key] = action.payload.value
     },
   },
@@ -37,7 +36,6 @@ const punchSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchAsyncPunch.fulfilled, (state, action) => {
-      console.log(action.payload)
       if (action.payload.status === 200) {
         state.res = action.payload
       } else {

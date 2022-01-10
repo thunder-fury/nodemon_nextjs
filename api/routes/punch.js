@@ -7,14 +7,14 @@ const punch = (app) => {
     //데이터 베이스 데이블 반환
     database().query(`SELECT * FROM punch`, (error, results, fields) => {
       console.log(results)
-      // res.header(`Content-Type`, `application/json; charset=utf-8`);
-      // error && res.status(500).send('Something broke!');
-      // if (results[id - 1]) {
-      //   res.status(200).send(results[id - 1]);
-      // } else {
-      //   // 404 에러 설정
-      //   res.status(404).send('Sorry cant find that!');
-      // }
+      res.header(`Content-Type`, `application/json; charset=utf-8`);
+      error && res.status(500).send('Something broke!');
+      if (results[id - 1]) {
+        res.status(200).send(results[id - 1]);
+      } else {
+        // 404 에러 설정
+        res.status(404).send('Sorry cant find that!');
+      }
     });
     database().end();
   });

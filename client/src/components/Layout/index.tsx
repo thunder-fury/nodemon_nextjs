@@ -23,7 +23,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     console.log(`Route is changing is complete...`)
     setLoading(false)
   })
-  console.log(pathName)
   return (
     <>
       {pathName !== `/login` && pathName !== `/signup` && <Header />}

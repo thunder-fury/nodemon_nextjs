@@ -1,4 +1,7 @@
 const { database } = require('./../confg/database');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
 const login = (app) => {
   app.post(`/api/login`, (req, res) => {
     const { email, password } = req.body;
@@ -9,12 +12,16 @@ const login = (app) => {
         const check = results.some(
           (e) => e.email === email && e.password === password
         )
-        console.log(results)
         if(check) {
+          const id = results[0].id
+          const token = jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: `15m`
+          })
           res.status(200).send({
             status: 200,
+            role: true,
             success_messge: `Hello👋`,
-            token: ``
+            token
           });
         } else {
           res.status(500).send({

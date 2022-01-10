@@ -1,5 +1,7 @@
+import { FIXME } from '../types/Any'
+
 /* eslint-disable prettier/prettier */
-export const getFetch = (url: string): Promise<any> => {
+export const getFetch = (url: string): Promise<FIXME> => {
   const options = {
     method: 'GET',
   }
@@ -14,8 +16,12 @@ export const getFetch = (url: string): Promise<any> => {
 
 
 export const FetchGet = (
-  fetchInfo: { endPoint: string, basicAuth?: { id: string, password: string }, token?: string },
-): Promise<any> | undefined => {
+  fetchInfo: {
+    endPoint: string,
+    basicAuth?: { id: string, password: string },
+    token?: string
+  },
+): Promise<FIXME> | undefined => {
   const method = `GET`
   const { endPoint, basicAuth, token } = fetchInfo
   const headers: { [key: string]: string } = basicAuth ? {
@@ -46,9 +52,9 @@ export const FetchPost = (
   endPoint: string,
   posts: { [key: string]: string | number },
   token?: string
-): Promise<any> => {
+): Promise<FIXME> => {
   const method = `POST`
-  const headers: any = token ? {
+  const headers: FIXME = token ? {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
@@ -73,9 +79,9 @@ export const FetchPut = (
   endPoint: string,
   posts: { [key: string]: string | number },
   token?: string
-): Promise<any> => {
+): Promise<FIXME> => {
   const method = `PUT`
-  const headers: any = token ? {
+  const headers: FIXME = token ? {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
