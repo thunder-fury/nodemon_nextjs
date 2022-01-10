@@ -1,6 +1,7 @@
 const { database } = require('./../confg/database');
 const { login } = require('./login');
 const { signUp } = require('./signUp');
+const { punch } = require('./punch');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -69,6 +70,8 @@ const renders = (app) => {
   signUp(app)
   // login
   login(app)
+  //punch
+  punch(app)
   // Image POST
   app.post(
     `/api/add_update`,
