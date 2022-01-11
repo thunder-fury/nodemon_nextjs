@@ -1,5 +1,5 @@
 const { database } = require('./../confg/database');
-const { login } = require('./login');
+const { login, logout } = require('./login');
 const { signUp } = require('./signUp');
 const { punch } = require('./punch');
 const multer = require('multer');
@@ -70,6 +70,8 @@ const renders = (app) => {
   signUp(app)
   // login
   login(app)
+  // logout
+  logout(app)
   //punch
   punch(app)
   // Image POST

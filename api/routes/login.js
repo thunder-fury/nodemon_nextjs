@@ -1,9 +1,11 @@
 const { database } = require('./../confg/database');
 const jwt = require('jsonwebtoken');
+const { verifyJWT } = require('../utils/jwt');
 require('dotenv').config();
 
 const login = (app) => {
   app.post(`/api/login`, (req, res) => {
+    console.log(res)
     const { email, password } = req.body;
     const sql = `SELECT * FROM member`;
     if(email && password) {
@@ -29,6 +31,7 @@ const login = (app) => {
             error_messge: `🚫🚨存在していないユーザーです。😢`
           });
         }
+
       })
       database().end()
     } else {
@@ -41,4 +44,12 @@ const login = (app) => {
   });
 };
 
+const logout = (app) => {
+  app.post(`/api/logout`, verifyJWT, (req, res) => {
+    res.send({ success_messge: `ログアウトされました`});
+    // const sql = `SELECT * FROM member WHERE email = ? AND password = ?`;
+  });
+};
+
 exports.login = login;
+exports.logout = logout;
