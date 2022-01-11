@@ -7,18 +7,26 @@ import {
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { fetchAsyncPunchPost } from '../../../stores/slices/punchSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  fetchAsyncPunchPost,
+  fetchAsyncPunchGet,
+  punchRes,
+} from '../../../stores/slices/punchSlice'
 
 const DigitalClock = () => {
   const [date, setDate] = useState(new Date())
   const dispatch = useDispatch()
+  const _punchRes = useSelector(punchRes)
   const yobi = ['日', '月', '火', '水', '木', '金', '土']
   useEffect(() => {
     setTimeout(() => {
       setDate(new Date())
     }, 1000)
   }, [date])
+  useEffect(() => {
+    dispatch(fetchAsyncPunchGet())
+  }, [])
   const punch = () => {
     const attendance = `${date.getHours()}:${date.getMinutes()}`
     const data = {

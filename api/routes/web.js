@@ -1,7 +1,7 @@
 const { database } = require('./../confg/database');
 const { login, logout } = require('./login');
 const { signUp } = require('./signUp');
-const { punch } = require('./punch');
+const { punch, punchGet } = require('./punch');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -74,6 +74,7 @@ const renders = (app) => {
   logout(app)
   //punch
   punch(app)
+  punchGet(app)
   // Image POST
   app.post(
     `/api/add_update`,

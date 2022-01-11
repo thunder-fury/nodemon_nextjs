@@ -6,17 +6,18 @@ import { FIXME } from '../../types/Any'
 import { addSesstion, getSesstion, removeSesstion } from '../../utils/Sesstion'
 import { FetchGet, FetchPost } from '../../utils/Api'
 
-export const fetchAsyncPunch = createAsyncThunk(
-  'punch/get',
-  async (id: FIXME) => {
-    const res = await FetchGet({ endPoint: `/api/punch/${id}` })
-    return res
-  }
-)
+export const fetchAsyncPunchGet = createAsyncThunk('punch/get', async () => {
+  const res = await FetchGet({ endPoint: `/api/punch_get` })
+  return res
+})
 export const fetchAsyncPunchPost = createAsyncThunk(
   'punch/post',
   async (data: FIXME) => {
-    const res = await FetchPost({ endPoint: `/api/punch`, data })
+    const res = await FetchPost({
+      endPoint: `/api/punch`,
+      data,
+      token: getSesstion(`token`),
+    })
     return res
   }
 )
@@ -25,9 +26,6 @@ const punchSlice = createSlice({
   name: `punch`,
   initialState: {
     loading: false,
-    status: false,
-    role: ``,
-    userName: ``,
     res: {} as FIXME,
   },
   reducers: {
@@ -36,13 +34,13 @@ const punchSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchAsyncPunch.pending, (state) => {
+    builder.addCase(fetchAsyncPunchGet.pending, (state) => {
       state.loading = true
     })
-    builder.addCase(fetchAsyncPunch.rejected, (state) => {
+    builder.addCase(fetchAsyncPunchGet.rejected, (state) => {
       state.loading = false
     })
-    builder.addCase(fetchAsyncPunch.fulfilled, (state, action) => {
+    builder.addCase(fetchAsyncPunchGet.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
         state.res = action.payload
       } else {
@@ -57,11 +55,13 @@ const punchSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchAsyncPunchPost.fulfilled, (state, action) => {
-      console.log(action.payload)
+      console.log(action)
       if (action.payload.status === 200) {
         state.res = action.payload
+      } else if (action.payload.status === 500) {
+        state.res = action.payload
       } else {
-        state.res = ''
+        state.res = action.payload
       }
       state.loading = false
     })

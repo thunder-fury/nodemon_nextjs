@@ -27,7 +27,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   })
   useEffect(() => {
     const role = getSesstion(`role`)
-    console.log(role)
     !role && Router.push(`/login`)
   }, [pathName, sesstion])
   return (

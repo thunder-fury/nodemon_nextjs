@@ -64,7 +64,6 @@ const loginSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchAsyncLogOut.fulfilled, (state, action) => {
-      console.log(action)
       if (action.payload.status === 200) {
         removeSesstion(`token`)
         removeSesstion(`role`)

@@ -9,7 +9,7 @@ const store = configureStore({
   reducer: {
     login: loginReducer,
     signup: signUpReducer,
-    punch: signUpReducer,
+    punch: punchReducer,
   },
   middleware,
 })
