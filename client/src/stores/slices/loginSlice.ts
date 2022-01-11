@@ -32,7 +32,6 @@ const loginSlice = createSlice({
   },
   reducers: {
     setVal: (state: FIXME, action) => {
-      console.log(action)
       state[action.payload.key] = action.payload.value
     },
   },
@@ -44,10 +43,12 @@ const loginSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
+      console.log(action.payload)
       if (action.payload.status === 200) {
-        const { token, role } = action.payload
+        const { token, role, member_id } = action.payload
         addSesstion(`token`, token)
         addSesstion(`role`, role)
+        addSesstion(`member_id`, member_id)
         Router.push(`/my_page`)
       } else if (action.payload.status === 500) {
         state.res = action.payload
@@ -63,9 +64,11 @@ const loginSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchAsyncLogOut.fulfilled, (state, action) => {
+      console.log(action)
       if (action.payload.status === 200) {
         removeSesstion(`token`)
         removeSesstion(`role`)
+        removeSesstion(`member_id`)
         Router.push(`/login`)
       } else if (action.payload.status === 500) {
         state.res = action.payload

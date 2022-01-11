@@ -5,7 +5,6 @@ require('dotenv').config();
 
 const login = (app) => {
   app.post(`/api/login`, (req, res) => {
-    console.log(res)
     const { email, password } = req.body;
     const sql = `SELECT * FROM member`;
     if(email && password) {
@@ -14,14 +13,19 @@ const login = (app) => {
         const check = results.some(
           (e) => e.email === email && e.password === password
         )
+        const user = results.find(
+          (e) => e.email === email && e.password === password
+        )
         if(check) {
           const id = results[0].id
+          console.log(results)
           const token = jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: `15m`
           })
           res.status(200).send({
             status: 200,
             role: true,
+            member_id: user.id,
             success_messge: `Hello👋`,
             token
           });
@@ -45,8 +49,8 @@ const login = (app) => {
 };
 
 const logout = (app) => {
-  app.post(`/api/logout`, verifyJWT, (req, res) => {
-    res.send({ success_messge: `ログアウトされました`});
+  app.post(`/api/logout`, (req, res) => {
+    res.status(200).json({ status: 200, message: `success` });
     // const sql = `SELECT * FROM member WHERE email = ? AND password = ?`;
   });
 };

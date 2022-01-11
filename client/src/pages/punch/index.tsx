@@ -6,9 +6,6 @@ import { fetchAsyncPunch, punchRes } from '../../stores/slices/punchSlice'
 const Punch = () => {
   const dispatch = useDispatch()
   const _punchRes = useSelector(punchRes)
-  useEffect(() => {
-    dispatch(fetchAsyncPunch(1))
-  }, [])
   const { data } = _punchRes
   return (
     <>
