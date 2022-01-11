@@ -23,6 +23,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import MenuIcon from '@mui/icons-material/Menu'
 import { AccountCircleTwoTone } from '@mui/icons-material'
+import { fetchAsyncLogOut } from '../../../stores/slices/loginSlice'
+import { useDispatch } from 'react-redux'
 
 const drawerWidth = 240
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -83,7 +85,10 @@ const Header = () => {
   const handleMenu = (e: React.MouseEvent<HTMLElement>) =>
     setAnchorEl(e.currentTarget)
   const handleClose = () => setAnchorEl(null)
-
+  const dispatch = useDispatch()
+  const logOut = () => {
+    dispatch(fetchAsyncLogOut())
+  }
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -130,7 +135,14 @@ const Header = () => {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>My Page</MenuItem>
-              <MenuItem onClick={handleClose}>LogOut</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose()
+                  logOut()
+                }}
+              >
+                LogOut
+              </MenuItem>
             </Menu>
           </div>
         </Box>
