@@ -9,7 +9,7 @@ import { FetchPost } from '../../utils/Api'
 export const fetchAsyncSignup = createAsyncThunk(
   'signup/post',
   async (data: FIXME) => {
-    const res = await FetchPost(`/api/sign_up`, data)
+    const res = await FetchPost({ endPoint: `/api/sing_up`, data })
     return res
   }
 )

@@ -8,10 +8,18 @@ import { FetchPost } from '../../utils/Api'
 export const fetchAsyncLogin = createAsyncThunk(
   'login/post',
   async (data: FIXME) => {
-    const res = await FetchPost(`/api/login`, data)
+    const res = await FetchPost({ endPoint: `/api/login`, data })
     return res
   }
 )
+
+export const fetchAsyncLogOut = createAsyncThunk('logOut/post', async () => {
+  const res = await FetchPost({
+    endPoint: `/api/logout`,
+    token: getSesstion(`token`),
+  })
+  return res
+})
 
 const loginSlice = createSlice({
   name: `login`,
@@ -38,9 +46,27 @@ const loginSlice = createSlice({
     builder.addCase(fetchAsyncLogin.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
         const { token, role } = action.payload
-        addSesstion(`authInfo`, token)
+        addSesstion(`token`, token)
         addSesstion(`role`, role)
         Router.push(`/my_page`)
+      } else if (action.payload.status === 500) {
+        state.res = action.payload
+      } else {
+        state.res = action.payload
+      }
+      state.loading = false
+    })
+    builder.addCase(fetchAsyncLogOut.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(fetchAsyncLogOut.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(fetchAsyncLogOut.fulfilled, (state, action) => {
+      if (action.payload.status === 200) {
+        removeSesstion(`token`)
+        removeSesstion(`role`)
+        Router.push(`/login`)
       } else if (action.payload.status === 500) {
         state.res = action.payload
       } else {

@@ -49,10 +49,13 @@ export const FetchGet = (
 }
 
 export const FetchPost = (
-  endPoint: string,
-  posts: { [key: string]: string | number },
-  token?: string
+  fetchInfo: {
+    endPoint: string,
+    data?: { [key: string]: string | number },
+    token?: FIXME
+  }
 ): Promise<FIXME> => {
+  const { endPoint, token, data } = fetchInfo
   const method = `POST`
   const headers: FIXME = token ? {
     'Accept': 'application/json',
@@ -62,7 +65,7 @@ export const FetchPost = (
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   }
-  const body = JSON.stringify(posts)
+  const body = data ? JSON.stringify(data) : ``
   return fetch(endPoint, { method, headers, body })
     .then(res => {
       return res.json()
