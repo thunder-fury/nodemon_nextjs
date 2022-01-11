@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Axios from 'axios'
 import { css } from '@emotion/react'
 import {
@@ -17,6 +17,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import ModalGrid from '../../components/Atoms/Modal'
 import { FIXME } from '../../types/Any'
+import { getSesstion } from '../../utils/Sesstion'
+import Router from 'next/router'
 export const Login = () => {
   const [userEmeil, setUserEmail] = useState(``)
   const [userPassword, setUserPassword] = useState(``)
@@ -30,6 +32,9 @@ export const Login = () => {
     }
     dispatch(fetchAsyncLogin(data))
   }
+  useEffect(() => {
+    getSesstion(`role`) && Router.push(`/my_page`)
+  }, [])
   return (
     <>
       {status && <ModalGrid res={_loginRes} setVal={setVal} />}
