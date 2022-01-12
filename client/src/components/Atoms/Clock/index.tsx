@@ -31,8 +31,8 @@ const DigitalClock = () => {
     const attendance = `${date.getHours()}:${date.getMinutes()}`
     const data = {
       attendance,
-      leaving: '18:00:00',
-      date: `2022-01-11`,
+      leaving: '20:00:00',
+      date: `2022-01-12`,
       active: `am`,
       member_id: 41,
       note: `備考`,
