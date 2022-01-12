@@ -55,7 +55,7 @@ const punchSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchAsyncPunchPost.fulfilled, (state, action) => {
-      console.log(action)
+      console.log(action.payload)
       if (action.payload.status === 200) {
         state.res = action.payload
       } else if (action.payload.status === 500) {

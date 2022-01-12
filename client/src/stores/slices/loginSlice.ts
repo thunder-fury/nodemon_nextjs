@@ -49,7 +49,7 @@ const loginSlice = createSlice({
         addSesstion(`token`, token)
         addSesstion(`role`, role)
         addSesstion(`member_id`, member_id)
-        Router.push(`/my_page`)
+        Router.push(`/punch`)
       } else if (action.payload.status === 500) {
         state.res = action.payload
       } else {
