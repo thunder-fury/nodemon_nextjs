@@ -16,7 +16,6 @@ interface DataProps {
 }
 
 const DataTable: React.FC<DataProps> = ({ data }) => {
-  console.log(data)
   return (
     <Box
       sx={{

@@ -13,6 +13,7 @@ import {
   fetchAsyncPunchGet,
   punchRes,
 } from '../../../stores/slices/punchSlice'
+import { dateFormat } from '../../../utils/format'
 
 const DigitalClock = () => {
   const [date, setDate] = useState(new Date())
@@ -31,8 +32,8 @@ const DigitalClock = () => {
     const attendance = `${date.getHours()}:${date.getMinutes()}`
     const data = {
       attendance,
-      leaving: '20:00:00',
-      date: `2022-01-12`,
+      leaving: '10:00:00',
+      date: dateFormat(new Date()),
       active: `am`,
       member_id: 41,
       note: `備考`,

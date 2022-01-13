@@ -25,7 +25,6 @@ const signupSlice = createSlice({
   },
   reducers: {
     setVal: (state: FIXME, action) => {
-      console.log(action)
       state[action.payload.key] = action.payload.value
     },
   },
