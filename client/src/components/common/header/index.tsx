@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { styled, useTheme } from '@mui/material/styles'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import {
@@ -17,15 +17,16 @@ import {
   MenuItem,
 } from '@mui/material'
 
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled'
+import AccessAlarmsIcon from '@mui/icons-material/AccessAlarms'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered'
 import MenuIcon from '@mui/icons-material/Menu'
 import { AccountCircleTwoTone } from '@mui/icons-material'
 import { fetchAsyncLogOut } from '../../../stores/slices/loginSlice'
 import { useDispatch } from 'react-redux'
-
+import Link from 'next/link'
 const drawerWidth = 240
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean
@@ -79,6 +80,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const Header = () => {
   const theme = useTheme()
   const [open, setOpen] = useState(false)
+  const [toggle, setToggle] = useState(false)
   const handleDrawerOpen = () => setOpen(true)
   const handleDrawerClose = () => setOpen(false)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -171,14 +173,42 @@ const Header = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred'].map((text, index) => (
+          <ListItemGrid>
+            <AccountCircleTwoTone sx={{ width: 20 }} />
+            <Link href={`/my_page`}>
+              <a>
+                <ListItemText primary={`my page`} />
+              </a>
+            </Link>
+          </ListItemGrid>
+          <ListItemGrid>
+            <AccessAlarmsIcon sx={{ width: 20 }} />
+            <Link href={`/punch`}>
+              <a>
+                <ListItemText primary={`punch`} />
+              </a>
+            </Link>
+          </ListItemGrid>
+          <ListItemGrid>
+            <FormatListNumberedIcon sx={{ width: 20 }} />
+            <Link href={`/punch_list`}>
+              <a>
+                <ListItemText primary={`punch list`} />
+              </a>
+            </Link>
+          </ListItemGrid>
+          {/* {['my_page', 'punch'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <Link href={`/${text}`}>
+                <a>
+                  <ListItemText primary={text} />
+                </a>
+              </Link>
             </ListItem>
-          ))}
+          ))} */}
         </List>
         <Divider />
       </Drawer>
@@ -186,6 +216,14 @@ const Header = () => {
         <DrawerHeader />
       </Main>
     </Box>
+  )
+}
+
+const ListItemGrid = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <ListItem button sx={{ display: `flex`, alignItems: `center`, gap: 2 }}>
+      {children}
+    </ListItem>
   )
 }
 

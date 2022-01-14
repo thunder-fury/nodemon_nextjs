@@ -73,8 +73,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-  ],
+    "**/*.tsx",
+    "src/components/Atoms/SuccessSnackbar/index.tss"  ],
   "exclude": [
     "node_modules"
   ]

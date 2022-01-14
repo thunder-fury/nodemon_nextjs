@@ -10,7 +10,8 @@ const Punch = () => {
   const dispatch = useDispatch()
   const _punchRes = useSelector(punchRes)
   const { respons } = _punchRes
-  return <DigitalClock />
+  console.log(respons)
+  return <DataTable />
 }
 
 export default Punch

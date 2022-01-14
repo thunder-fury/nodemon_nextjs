@@ -15,12 +15,12 @@ const upload = multer({ dest: 'uploads/' });
 const uploadWithOriginalFilename = multer({ storage: storage });
 const renders = (app) => {
   // Load View Engine
-  app.get('/', (req, res) => {
-    // 루트로 접속할경우 인덱스로 리다이렉트
-    res.render(`index`, {
-      title: 'Hello',
-    });
-  });
+  // app.get('/', (req, res) => {
+  //   // 루트로 접속할경우 인덱스로 리다이렉트
+  //   res.render(`index`, {
+  //     title: 'Hello',
+  //   });
+  // });
   //Add Route
   app.get(`/articles/add`, (req, res) => {
     // /articles/add 로 접속할경우 글추가 페이지로 리다이렉트

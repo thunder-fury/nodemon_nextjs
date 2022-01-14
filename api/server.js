@@ -16,12 +16,17 @@ app.use(`/image`, express.static(`./uploads`));
 // Load View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
+// app.set('/public', path.join(__dirname, 'public'));
 //render
 renders(app);
 
 //api
 apis(app);
+
+// app.get('/', (req, res) => {
+//   // 루트로 접속할경우 인덱스로 리다이렉트
+//   res.sendFile( path.join(__dirname, 'public/'));
+// });
 
 // Start Server
 app.listen(port, () => {
