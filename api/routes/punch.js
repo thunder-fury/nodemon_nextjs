@@ -6,7 +6,9 @@ const { verifyJWT } = require('../utils/jwt');
 const punch = (app) => {
   app.post(`/api/punch`, (req, res) => {
     const { active, attendance, leaving, date, member_id, note } = req.body;
-    const allPunchSql = `SELECT * FROM punch`
+    const allPunchSql = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') as f_date FROM punch where date like '2022-01%' `
+    // as f_date コピー名前をつけられる。
+    // whereで絞る
     database().query(allPunchSql, (error, results, fields) => {
       const user = results.find((e) => Number(e.member_id) === member_id && dateFormat(e.date) === dateFormat(new Date()))
       if(user === undefined) {
@@ -21,7 +23,7 @@ const punch = (app) => {
             });
         });
       } else {
-        if(user.leaving === `00:00:00`) {
+        if(user.leaving === null) {
           const update = `UPDATE punch SET leaving = ? where id = ${user.id}`
           database().query(update, leaving,(err, rows, fields) => {
             res.header(`Content-Type`, `application/json; charset=utf-8`);

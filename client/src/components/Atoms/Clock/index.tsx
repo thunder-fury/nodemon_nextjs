@@ -14,25 +14,24 @@ import {
   punchRes,
 } from '../../../stores/slices/punchSlice'
 import { dateFormat } from '../../../utils/format'
-
+import IntegrationNotistack from '../SuccessSnackbar'
+import { SnackbarProvider, VariantType, useSnackbar } from 'notistack'
 const DigitalClock = () => {
   const [date, setDate] = useState(new Date())
+  const [note, setNote] = useState(``)
   const dispatch = useDispatch()
   const _punchRes = useSelector(punchRes)
   const yobi = ['日', '月', '火', '水', '木', '金', '土']
   useEffect(() => {
     setTimeout(() => {
       setDate(new Date())
-    }, 1000)
+    }, 10000)
   }, [date])
-  useEffect(() => {
-    dispatch(fetchAsyncPunchGet())
-  }, [])
   const punch = () => {
     const attendance = `${date.getHours()}:${date.getMinutes()}`
     const data = {
       attendance,
-      leaving: '10:00:00',
+      leaving: `20:00:00`,
       date: dateFormat(new Date()),
       active: `am`,
       member_id: 41,
@@ -50,10 +49,10 @@ const DigitalClock = () => {
           </Typography>
           <Typography variant={`h2`}>
             <time suppressHydrationWarning>
-              {`${date.getHours()}`}:{`${date.getMinutes()}`}:
-              {date.getSeconds() < 10
+              {`${date.getHours()}`}:{`${date.getMinutes()}`}
+              {/* {date.getSeconds() < 10
                 ? `0${date.getSeconds()}`
-                : `${date.getSeconds()}`}
+                : `${date.getSeconds()}`} */}
             </time>
           </Typography>
           <Box sx={{ mt: 3 }}>
@@ -67,9 +66,10 @@ const DigitalClock = () => {
             />
           </Box>
           <Box sx={{ width: 300, mt: 2 }}>
-            <Button onClick={punch} fullWidth variant={`contained`}>
+            <IntegrationNotistack respons={_punchRes} punch={punch} />
+            {/* <Button onClick={punch} fullWidth variant={`contained`}>
               出勤
-            </Button>
+            </Button> */}
           </Box>
         </Box>
       </Box>
