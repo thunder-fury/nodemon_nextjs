@@ -3,6 +3,7 @@ const { login, logout } = require('./login');
 const { signUp } = require('./signUp');
 const { punch, punchGet, exportPunchStr } = require('./punch');
 const multer = require('multer');
+const { getCurrentUserInfo } = require('./user');
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/');
@@ -77,6 +78,7 @@ const renders = (app) => {
   punchGet(app)
   exportPunchStr(app)
   // Image POST
+  getCurrentUserInfo(app)
   app.post(
     `/api/add_update`,
     uploadWithOriginalFilename.single('file'),

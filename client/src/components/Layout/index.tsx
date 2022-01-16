@@ -7,6 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Header from '../common/header'
 import { getSesstion } from '../../utils/Sesstion'
 import { setVal } from '../../stores/slices/loginSlice'
+import { fetchAsyncPunchGet } from '../../stores/slices/punchSlice'
+import {
+  fetchAsyncCurrentUserGet,
+  masterRes,
+} from '../../stores/slices/masterSlice'
 
 // const Loading = dynamic(() => import("../../../components/Modules/Loading"), {
 //   ssr: false,
@@ -17,6 +22,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathName = router.pathname
   const [sesstion, setSesstion] = useState<string | null>(``)
   const [loading, setLoading] = useState<boolean>(false)
+  useEffect(() => {
+    const memberId = getSesstion(`member_id`)
+    if (memberId) {
+      dispatch(fetchAsyncCurrentUserGet(memberId))
+      dispatch(fetchAsyncPunchGet(memberId))
+    }
+  }, [pathName])
   Router.events.on(`routeChangeStart`, (url) => {
     console.log(`Route is changing...`)
     setLoading(true)
@@ -28,7 +40,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const role = getSesstion(`role`)
     !role && Router.push(`/login`)
-  }, [pathName, sesstion])
+  }, [pathName])
   return (
     <>
       {pathName !== `/login` && pathName !== `/signup` && <Header />}

@@ -25,7 +25,6 @@ const DataTable: React.FC = () => {
   const { respons }: FIXME = _punchList
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchAsyncPunchGet())
     dispatch(fetchAsyncPunchListCsvGet())
   }, [])
   return (

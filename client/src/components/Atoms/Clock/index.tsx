@@ -16,6 +16,7 @@ import {
   punchRes,
   setVal,
   punchList,
+  punchLoading,
 } from '../../../stores/slices/punchSlice'
 import { dateFormat } from '../../../utils/format'
 import IntegrationNotistack from '../SuccessSnackbar'
@@ -23,12 +24,18 @@ import { SnackbarProvider, VariantType, useSnackbar } from 'notistack'
 import ModalGrid from '../Modal'
 import { FIXME } from '../../../types/Any'
 import { PunchType } from '../../../types/Punch.Type'
+import dynamic from 'next/dynamic'
+import { getSesstion } from '../../../utils/Sesstion'
+const Loading = dynamic(() => import('../loading'), {
+  ssr: false,
+})
 const DigitalClock = () => {
   const [date, setDate] = useState(new Date())
   const [note, setNote] = useState(``)
   const dispatch = useDispatch()
   const _punchRes = useSelector(punchRes)
   const _punchList = useSelector(punchList)
+  const loading = useSelector(punchLoading)
   const { status, respons, error_messge, success_messge }: FIXME = _punchRes
   const getCurrDayPunchRes = _punchList?.respons?.find(
     (v: PunchType) => v.date === dateFormat(new Date())
@@ -39,7 +46,7 @@ const DigitalClock = () => {
       setDate(new Date())
     }, 10000)
   }, [date])
-  const currentTime = `${date.getHours()}:${date.getMinutes()}`
+  const currentTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   const punch = {
     attendance: () => {
       const attendance = {
@@ -47,7 +54,7 @@ const DigitalClock = () => {
         leaving: null,
         date: dateFormat(new Date()),
         active: `am`,
-        member_id: 41,
+        member_id: getSesstion(`member_id`),
         note,
       }
       dispatch(fetchAsyncPunchPost(attendance))
@@ -58,17 +65,15 @@ const DigitalClock = () => {
         leaving: currentTime,
         date: dateFormat(new Date()),
         active: `am`,
-        member_id: 41,
+        member_id: getSesstion(`member_id`),
         note,
       }
       dispatch(fetchAsyncPunchPost(attendance))
     },
   }
-  useEffect(() => {
-    dispatch(fetchAsyncPunchGet())
-  }, [])
   return (
     <Container sx={{ display: `flex`, justifyContent: `center` }}>
+      <Loading open={loading} />
       {/* {error_messge && <ModalGrid res={_punchRes} setVal={setVal} />}
       {success_messge && <ModalGrid res={_punchRes} setVal={setVal} />} */}
       <Box>

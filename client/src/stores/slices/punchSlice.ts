@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
 import Router from 'next/router'
 
@@ -6,10 +6,13 @@ import { FIXME } from '../../types/Any'
 import { addSesstion, getSesstion, removeSesstion } from '../../utils/Sesstion'
 import { FetchGet, FetchPost } from '../../utils/Api'
 
-export const fetchAsyncPunchGet = createAsyncThunk('punch/get', async () => {
-  const res = await FetchGet({ endPoint: `/api/punch_get` })
-  return res
-})
+export const fetchAsyncPunchGet = createAsyncThunk(
+  'punch/get',
+  async (member_id?: string | null) => {
+    const res = await FetchGet({ endPoint: `/api/punch_get/${member_id}` })
+    return res
+  }
+)
 export const fetchAsyncPunchListCsvGet = createAsyncThunk(
   'punch/get_csv',
   async () => {
@@ -78,7 +81,6 @@ const punchSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchAsyncPunchPost.fulfilled, (state, action) => {
-      console.log(action)
       if (action.payload.status === 200) {
         state.res = action.payload
       } else if (action.payload.status === 500) {

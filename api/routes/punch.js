@@ -12,8 +12,8 @@ const punch = (app) => {
     // as f_date コピー名前をつけられる。
     // whereで絞る
     database().query(allPunchSql, (error, results, fields) => {
-      console.log(results)
-      const user = results.find((e) => Number(e.member_id) === member_id && dateFormat(e.date) === dateFormat(new Date()))
+      const user = results.find((e) => Number(e.member_id) === Number(member_id) && dateFormat(e.date) === dateFormat(new Date()))
+      console.log(user)
       if(user === undefined) {
         const sql = `INSERT INTO punch VALUES (null, ?, ?, ?, ?, ?, ?)`;
         const params = [active, attendance, leaving, date, member_id, note];
@@ -26,6 +26,8 @@ const punch = (app) => {
             });
         });
       } else {
+        console.log(user)
+        console.log(user.leaving)
         if(user.leaving === null) {
           const update = `UPDATE punch SET leaving = ? where id = ${user.id}`
           database().query(update, leaving,(err, rows, fields) => {
@@ -50,8 +52,10 @@ const punch = (app) => {
 };
 
 const punchGet = (app) => {
-  const allPunchSql = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') date FROM punch where date like '2022-01%' `
-  app.get(`/api/punch_get`, (req, res) => {
+  app.get(`/api/punch_get/:id`, (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    console.log(id)
+    const allPunchSql = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') date FROM punch WHERE date LIKE '2022-01%' AND member_id LIKE ${id}`
     database().query(allPunchSql,(error, results, fields) => {
       if(results.length >= 0) {
         res.status(200).send({

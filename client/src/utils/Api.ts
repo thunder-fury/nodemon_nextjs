@@ -1,5 +1,5 @@
 import { FIXME } from '../types/Any'
-
+import { getSesstion } from './Sesstion'
 /* eslint-disable prettier/prettier */
 export const getFetch = (url: string): Promise<FIXME> => {
   const options = {
@@ -31,7 +31,7 @@ export const FetchGet = (
   } : token ? {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`
+    Authorization: `Bearer ${token ? token : getSesstion(`token`)}`
   } : {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
@@ -60,12 +60,12 @@ export const FetchPost = (
   const headers: FIXME = token ? {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${token ? token : getSesstion(`token`)}`
   } : {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   }
-  const body = data ? JSON.stringify(data) : ``
+  const body = data ? JSON.stringify(data) : null
   return fetch(endPoint, { method, headers, body })
     .then(res => {
       return res.json()
