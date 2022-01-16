@@ -9,6 +9,7 @@ import { PunchType } from '../../types/Punch.Type'
 const Punch = () => {
   const dispatch = useDispatch()
   const _punchRes = useSelector(punchRes)
+
   const { respons } = _punchRes
   return <DigitalClock />
 }

@@ -10,7 +10,6 @@ const Punch = () => {
   const dispatch = useDispatch()
   const _punchRes = useSelector(punchRes)
   const { respons } = _punchRes
-  console.log(respons)
   return <DataTable />
 }
 
