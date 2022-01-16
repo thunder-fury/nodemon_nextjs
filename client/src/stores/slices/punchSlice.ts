@@ -10,6 +10,13 @@ export const fetchAsyncPunchGet = createAsyncThunk('punch/get', async () => {
   const res = await FetchGet({ endPoint: `/api/punch_get` })
   return res
 })
+export const fetchAsyncPunchListCsvGet = createAsyncThunk(
+  'punch/get_csv',
+  async () => {
+    const res = await FetchGet({ endPoint: `/api/punch_csv` })
+    return res
+  }
+)
 export const fetchAsyncPunchPost = createAsyncThunk(
   'punch/post',
   async (data: FIXME) => {
@@ -27,6 +34,8 @@ const punchSlice = createSlice({
   initialState: {
     loading: false,
     res: {} as FIXME,
+    list: {} as FIXME,
+    csv: {} as FIXME,
   },
   reducers: {
     setVal: (state: FIXME, action) => {
@@ -42,9 +51,23 @@ const punchSlice = createSlice({
     })
     builder.addCase(fetchAsyncPunchGet.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
-        state.res = action.payload
+        state.list = action.payload
       } else {
-        state.res = ''
+        state.list = ''
+      }
+      state.loading = false
+    })
+    builder.addCase(fetchAsyncPunchListCsvGet.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(fetchAsyncPunchListCsvGet.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(fetchAsyncPunchListCsvGet.fulfilled, (state, action) => {
+      if (action.payload.status === 200) {
+        state.csv = action.payload
+      } else {
+        state.csv = ''
       }
       state.loading = false
     })
@@ -55,7 +78,7 @@ const punchSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchAsyncPunchPost.fulfilled, (state, action) => {
-      console.log(action.payload)
+      console.log(action)
       if (action.payload.status === 200) {
         state.res = action.payload
       } else if (action.payload.status === 500) {
@@ -72,6 +95,8 @@ export const { setVal } = punchSlice.actions
 
 export const punchMaster = (state: RootState) => state.punch
 export const punchRes = (state: RootState) => state.punch.res
+export const punchList = (state: RootState) => state.punch.list
+export const punchListCsv = (state: RootState) => state.punch.csv
 export const punchLoading = (state: RootState) => state.punch.loading
 
 export default punchSlice.reducer
