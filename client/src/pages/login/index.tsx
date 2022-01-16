@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import Axios from 'axios'
-import { css } from '@emotion/react'
 import {
   Box,
   Button,
@@ -13,17 +11,23 @@ import {
   fetchAsyncLogin,
   loginRes,
   setVal,
+  loginLoading,
 } from '../../stores/slices/loginSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import ModalGrid from '../../components/Atoms/Modal'
 import { FIXME } from '../../types/Any'
 import { getSesstion } from '../../utils/Sesstion'
 import Router from 'next/router'
+import dynamic from 'next/dynamic'
+const Loading = dynamic(() => import('../../components/Atoms/loading'), {
+  ssr: false,
+})
 export const Login = () => {
   const [userEmeil, setUserEmail] = useState(``)
   const [userPassword, setUserPassword] = useState(``)
   const dispatch = useDispatch()
   const _loginRes = useSelector(loginRes)
+  const _loginLoading = useSelector(loginLoading)
   const { status }: FIXME = _loginRes
   const login = async () => {
     const data = {
@@ -35,9 +39,11 @@ export const Login = () => {
   useEffect(() => {
     getSesstion(`role`) && Router.push(`/my_page`)
   }, [])
+
   return (
     <>
       {status && <ModalGrid res={_loginRes} setVal={setVal} />}
+      <Loading open={_loginLoading} />
       <Typography variant="h4" gutterBottom component="div">
         Login
       </Typography>
