@@ -1,15 +1,18 @@
 const moment = require('moment');
 const { database } = require('../confg/database');
 const { dateFormat } = require('../utils/format');
+const { jsonCsv } = require('../utils/jsonCsv');
 const { verifyJWT } = require('../utils/jwt');
 
 const punch = (app) => {
   app.post(`/api/punch`, (req, res) => {
     const { active, attendance, leaving, date, member_id, note } = req.body;
-    const allPunchSql = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') as f_date FROM punch where date like '2022-01%' `
+    // date_format(modidate,'%Y-%m-%d %H:%i:%s') modidate
+    const allPunchSql = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') date FROM punch where date like '2022-01%' `
     // as f_date コピー名前をつけられる。
     // whereで絞る
     database().query(allPunchSql, (error, results, fields) => {
+      console.log(results)
       const user = results.find((e) => Number(e.member_id) === member_id && dateFormat(e.date) === dateFormat(new Date()))
       if(user === undefined) {
         const sql = `INSERT INTO punch VALUES (null, ?, ?, ?, ?, ?, ?)`;
@@ -47,7 +50,7 @@ const punch = (app) => {
 };
 
 const punchGet = (app) => {
-  const allPunchSql = `SELECT * FROM punch`
+  const allPunchSql = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') date FROM punch where date like '2022-01%' `
   app.get(`/api/punch_get`, (req, res) => {
     database().query(allPunchSql,(error, results, fields) => {
       if(results.length >= 0) {
@@ -66,5 +69,20 @@ const punchGet = (app) => {
   })
 }
 
+const exportPunchStr = (app) => {
+  const allPunchSql = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') date FROM punch where date like '2022-01%' `
+  app.get(`/api/punch_csv`, (req, res) => {
+    database().query(allPunchSql,(error, results, fields) => {
+      res.status(200).send({
+        status: 200,
+        success_messge : `success`,
+        respons: jsonCsv(results)
+      });
+    })
+  })
+}
+
+
+exports.exportPunchStr = exportPunchStr
 exports.punchGet = punchGet
-exports.punch = punch;
+exports.punch = punch
