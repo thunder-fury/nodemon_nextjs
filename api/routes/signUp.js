@@ -11,7 +11,7 @@ const signUp = (app) => {
           res.status(500).send({ status: 500, error_messge: `存在しているIDです。再度ご確認の上サインアップしてください。😢` });
         } else {
           const params = [email, password, user_name];
-          const sql = `INSERT INTO member VALUES (null, ?, ?, ?)`;
+          const sql = `INSERT INTO member VALUES (null, ?, ?, ?, null)`;
           database().connect();
           database().query(sql, params, (err, rows, fields) => {
             res.header(`Content-Type`, `application/json; charset=utf-8`);

@@ -4,12 +4,23 @@ import Router from 'next/router'
 
 import { FIXME } from '../../types/Any'
 import { addSesstion, getSesstion, removeSesstion } from '../../utils/Sesstion'
-import { FetchPost } from '../../utils/Api'
+import { FetchFormDataPost, FetchPost } from '../../utils/Api'
 
 export const fetchAsyncSignup = createAsyncThunk(
   'signup/post',
   async (data: FIXME) => {
-    const res = await FetchPost({ endPoint: `/api/sing_up`, data })
+    const res = await FetchPost({ endPoint: `/api/sign_up`, data })
+    return res
+  }
+)
+
+export const fetchAsyncProfileUpdate = createAsyncThunk(
+  `profile/post`,
+  async (formData: FIXME) => {
+    const res = await FetchFormDataPost({
+      endPoint: `/api/profile_update`,
+      formData,
+    })
     return res
   }
 )
@@ -36,6 +47,23 @@ const signupSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchAsyncSignup.fulfilled, (state, action) => {
+      if (action.payload.status === 200) {
+        state.res = action.payload
+        // Router.push(`/login`)
+      } else if (action.payload.status === 500) {
+        state.res = action.payload
+      } else {
+        state.res = action.payload
+      }
+      state.loading = false
+    })
+    builder.addCase(fetchAsyncProfileUpdate.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(fetchAsyncProfileUpdate.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(fetchAsyncProfileUpdate.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
         state.res = action.payload
         // Router.push(`/login`)
