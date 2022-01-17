@@ -26,8 +26,6 @@ const punch = (app) => {
             });
         });
       } else {
-        console.log(user)
-        console.log(user.leaving)
         if(user.leaving === null) {
           const update = `UPDATE punch SET leaving = ? where id = ${user.id}`
           database().query(update, leaving,(err, rows, fields) => {
@@ -54,7 +52,6 @@ const punch = (app) => {
 const punchGet = (app) => {
   app.get(`/api/punch_get/:id`, (req, res) => {
     const id = parseInt(req.params.id, 10);
-    console.log(id)
     const allPunchSql = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') date FROM punch WHERE date LIKE '2022-01%' AND member_id LIKE ${id}`
     database().query(allPunchSql,(error, results, fields) => {
       if(results.length >= 0) {
@@ -73,6 +70,20 @@ const punchGet = (app) => {
   })
 }
 
+const currentUserAllPunch = (app) => {
+  app.get(`/api/allpunch/:id`, (req, res) => {
+    const id = parseInt(req.params.id, 10)
+    const sql = `SELECT * FROM punch WHERE member_id = ${id}`
+    database().query(sql ,(error, results, fields) => {
+      res.status(200).send({
+        status: 200,
+        success_messge : `success`,
+        respons: results
+      });
+    })
+  })
+}
+
 const exportPunchStr = (app) => {
   const allPunchSql = `SELECT *, DATE_FORMAT(date, '%Y-%m-%d') date FROM punch where date like '2022-01%' `
   app.get(`/api/punch_csv`, (req, res) => {
@@ -87,6 +98,7 @@ const exportPunchStr = (app) => {
 }
 
 
+exports.currentUserAllPunch = currentUserAllPunch
 exports.exportPunchStr = exportPunchStr
 exports.punchGet = punchGet
 exports.punch = punch
