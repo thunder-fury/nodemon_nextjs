@@ -1,6 +1,7 @@
 import { FIXME } from '../types/Any'
 import { getSesstion } from './Sesstion'
 /* eslint-disable prettier/prettier */
+
 export const getFetch = (url: string): Promise<FIXME> => {
   const options = {
     method: 'GET',
@@ -66,6 +67,30 @@ export const FetchPost = (
     'Content-Type': 'application/json',
   }
   const body = data ? JSON.stringify(data) : null
+  return fetch(endPoint, { method, headers, body })
+    .then(res => {
+      return res.json()
+    })
+    .then(json => {
+      return json
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}
+export const FetchFormDataPost = (
+  fetchInfo: {
+    endPoint: string,
+    formData?: FIXME,
+    token?: FIXME
+  }
+): Promise<FIXME> => {
+  const { endPoint, token, formData } = fetchInfo
+  const method = `POST`
+  const headers: FIXME = {
+    Authorization: `Bearer ${token ? token : getSesstion(`token`)}`
+  }
+  const body: FIXME = formData
   return fetch(endPoint, { method, headers, body })
     .then(res => {
       return res.json()
