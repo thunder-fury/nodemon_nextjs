@@ -1,9 +1,10 @@
 const { database } = require('./../confg/database');
 const { login, logout } = require('./login');
 const { signUp } = require('./signUp');
-const { punch, punchGet, exportPunchStr } = require('./punch');
+const { punch, punchGet, exportPunchStr, currentUserAllPunch } = require('./punch');
 const multer = require('multer');
 const { getCurrentUserInfo } = require('./user');
+const { profile } = require('./profile');
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/');
@@ -79,6 +80,9 @@ const renders = (app) => {
   exportPunchStr(app)
   // Image POST
   getCurrentUserInfo(app)
+  currentUserAllPunch(app)
+  profile(app)
+
   app.post(
     `/api/add_update`,
     uploadWithOriginalFilename.single('file'),

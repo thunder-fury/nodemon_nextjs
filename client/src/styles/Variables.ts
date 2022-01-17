@@ -4,7 +4,7 @@ export const Color = {
   white: `#ffffff`,
   red: `#FF0000`,
 
-  blue: `#1C45EF`,
+  blue: `#1976d2`,
 
   purple: `#6777ef`,
 

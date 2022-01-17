@@ -11,8 +11,9 @@ import {
   punchListCsv,
 } from '../../../stores/slices/punchSlice'
 import SVGDownloadButton from '../CsvButton'
+
 const columns: GridColDef[] = [
-  { field: 'date', headerName: '日時', width: 200 },
+  { field: 'date', headerName: '日時', width: 110 },
   // { field: 'active', headerName: '現在', width: 100 },
   { field: 'attendance', headerName: '出勤時間', width: 110 },
   { field: 'leaving', headerName: '退勤時間', width: 110 },
@@ -39,7 +40,7 @@ const DataTable: React.FC = () => {
         sx={{
           width: 550,
           height: 500,
-          padding: `5%`,
+          p: 2,
         }}
       >
         <Box sx={{ display: `flex`, alignItems: `center` }}>

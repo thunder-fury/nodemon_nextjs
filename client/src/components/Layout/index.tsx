@@ -38,8 +38,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     setLoading(false)
   })
   useEffect(() => {
-    const role = getSesstion(`role`)
-    !role && Router.push(`/login`)
+    // const role = getSesstion(`role`)
+    // !role && Router.push(`/login`)
   }, [pathName])
   return (
     <>
@@ -52,7 +52,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 const content = {
   container: css`
     grid-gap: 20px;
-    height: 100vh;
   `,
 }
 

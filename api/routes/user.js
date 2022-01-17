@@ -8,8 +8,8 @@ const { verifyJWT } = require('../utils/jwt');
 const getCurrentUserInfo = (app) => {
   app.get(`/api/user_get/:id`, (req, res) => {
     const id = parseInt(req.params.id, 10);
-    const allPunchSql = `SELECT * FROM member WHERE id = ${id}`
-    database().query(allPunchSql,(error, results, fields) => {
+    const sql = `SELECT * FROM member WHERE id = ${id}`
+    database().query(sql ,(error, results, fields) => {
       res.status(200).send({
         status: 200,
         success_messge : `success`,
