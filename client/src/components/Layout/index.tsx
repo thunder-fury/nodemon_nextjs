@@ -12,6 +12,7 @@ import {
   fetchAsyncCurrentUserGet,
   masterRes,
 } from '../../stores/slices/masterSlice'
+import Footer from '../common/footer'
 
 // const Loading = dynamic(() => import("../../../components/Modules/Loading"), {
 //   ssr: false,
@@ -37,14 +38,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     console.log(`Route is changing is complete...`)
     setLoading(false)
   })
+  console.log(pathName)
   useEffect(() => {
-    // const role = getSesstion(`role`)
-    // !role && Router.push(`/login`)
+    const role = getSesstion(`role`)
+    pathName !== `/login` &&
+      pathName !== `/signup` &&
+      !role &&
+      Router.push(`/login`)
   }, [pathName])
   return (
     <>
       {pathName !== `/login` && pathName !== `/signup` && <Header />}
       <div css={content.container}>{children}</div>
+      {pathName !== `/login` && pathName !== `/signup` && <Footer />}
     </>
   )
 }
