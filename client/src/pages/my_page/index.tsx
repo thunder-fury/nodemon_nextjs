@@ -7,13 +7,13 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import axios from 'axios'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Graph from '../../components/Atoms/Graph'
 import { masterRes } from '../../stores/slices/masterSlice'
 import { fetchAsyncProfileUpdate } from '../../stores/slices/signupSlice'
 import { FIXME } from '../../types/Any'
+import { getSesstion } from '../../utils/Sesstion'
 
 const MyPage = () => {
   const _masterRes = useSelector(masterRes)
@@ -24,22 +24,13 @@ const MyPage = () => {
   const data = {
     file: image[0],
   }
-  const onSubmitHandler = async (e: any) => {
+  const onSubmitHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const formData = new FormData()
+    const memberId: FIXME = getSesstion(`member_id`)
     formData.append(`image`, image[0])
+    formData.append(`member_id`, memberId)
     dispatch(fetchAsyncProfileUpdate(formData))
-    // fetch('/api/profile_update', {
-    //   method: 'POST',
-    //   body: formData,
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data)
-    //   })
-    //   .catch((error) => {
-    //     console.error(error)
-    //   })
   }
   return (
     <Container
@@ -63,7 +54,9 @@ const MyPage = () => {
           <Button
             size={`large`}
             color={`primary`}
-            onClick={(e) => onSubmitHandler(e)}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+              onSubmitHandler(e)
+            }
           >
             イメージ変更
           </Button>
@@ -72,7 +65,7 @@ const MyPage = () => {
         <Box sx={{ display: `center`, justifyContent: `center` }}>
           <Avatar
             alt="Woo"
-            src="/static/images/avatar/1.jpg"
+            src={respons && respons[0]?.image}
             sx={{ width: 70, height: 70 }}
           />
         </Box>
