@@ -1,6 +1,5 @@
 const { database } = require('./../confg/database');
 const multer = require('multer');
-
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/');
@@ -16,14 +15,14 @@ const profile = (app) => {
     `/api/profile_update`,
     uploadWithOriginalFilename.single('image'),
     (req, res) => {
-      console.log(req.file)
-      const sql = `UPDATE member SET image = ? where id = '45'`
-      const image = `image/${req.file.filename}`;
+      console.log(res)
+      const { member_id } = req.body
+      const sql = `UPDATE member SET image = ? where id = ${member_id}`
+      const image = `http://${req.headers.host}/image/${req.file.filename}`;
       database().connect();
       database().query(sql, image, (err, rows, fields) => {
         res.header(`Content-Type`, `application/json; charset=utf-8`);
         res.status(200).send({ reow: rows });
-        console.log(rows);
       });
       database().end();
     },
