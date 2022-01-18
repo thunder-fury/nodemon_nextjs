@@ -48,7 +48,8 @@ const DigitalClock = () => {
   }, [date])
   const currentTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   const punch = {
-    attendance: () => {
+    attendance: (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault()
       const attendance = {
         attendance: currentTime,
         leaving: null,
@@ -59,7 +60,8 @@ const DigitalClock = () => {
       }
       dispatch(fetchAsyncPunchPost(attendance))
     },
-    leaving: () => {
+    leaving: (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault()
       const attendance = {
         attendance: currentTime,
         leaving: currentTime,
@@ -110,13 +112,21 @@ const DigitalClock = () => {
             {/* <IntegrationNotistack respons={_punchRes} punch={punch} /> */}
             <Button
               color={`info`}
-              onClick={punch.attendance}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                punch.attendance(e)
+              }
               fullWidth
               variant={`contained`}
             >
               出勤
             </Button>
-            <Button onClick={punch.leaving} fullWidth variant={`contained`}>
+            <Button
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                punch.leaving(e)
+              }
+              fullWidth
+              variant={`contained`}
+            >
               退勤
             </Button>
           </Box>
