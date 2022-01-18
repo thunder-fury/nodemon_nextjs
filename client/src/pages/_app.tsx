@@ -30,7 +30,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps }: FIXME) => {
         <Layout>
           <Component {...pageProps} />
         </Layout>
-        <Footer />
       </Provider>
     </>
   )
