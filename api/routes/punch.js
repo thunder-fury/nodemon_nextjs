@@ -27,8 +27,9 @@ const punch = (app) => {
         });
       } else {
         if(user.leaving === null) {
-          const update = `UPDATE punch SET leaving = ? where id = ${user.id}`
-          database().query(update, leaving,(err, rows, fields) => {
+          const update = `UPDATE punch SET leaving = ?, note = ? where id = ${user.id}`
+          const params = [leaving, note]
+          database().query(update, params,(err, rows, fields) => {
             res.header(`Content-Type`, `application/json; charset=utf-8`);
             res.status(200).send({
               status: 200,
