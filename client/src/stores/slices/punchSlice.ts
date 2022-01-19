@@ -13,6 +13,13 @@ export const fetchAsyncPunchGet = createAsyncThunk(
     return res
   }
 )
+export const fetchAsyncCurrentUserAllPunch = createAsyncThunk(
+  'allpunch/get',
+  async (member_id?: string | null) => {
+    const res = await FetchGet({ endPoint: `/api/allpunch/${member_id}` })
+    return res
+  }
+)
 export const fetchAsyncPunchListCsvGet = createAsyncThunk(
   'punch/get_csv',
   async () => {
@@ -39,6 +46,7 @@ const punchSlice = createSlice({
     res: {} as FIXME,
     list: {} as FIXME,
     csv: {} as FIXME,
+    allPanch: '',
   },
   reducers: {
     setVal: (state: FIXME, action) => {
@@ -90,6 +98,25 @@ const punchSlice = createSlice({
       }
       state.loading = false
     })
+    builder.addCase(fetchAsyncCurrentUserAllPunch.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(fetchAsyncCurrentUserAllPunch.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(
+      fetchAsyncCurrentUserAllPunch.fulfilled,
+      (state, action) => {
+        if (action.payload.status === 200) {
+          state.allPanch = action.payload.respons
+        } else if (action.payload.status === 500) {
+          state.allPanch = action.payload
+        } else {
+          state.allPanch = action.payload
+        }
+        state.loading = false
+      }
+    )
   },
 })
 
@@ -99,6 +126,7 @@ export const punchMaster = (state: RootState) => state.punch
 export const punchRes = (state: RootState) => state.punch.res
 export const punchList = (state: RootState) => state.punch.list
 export const punchListCsv = (state: RootState) => state.punch.csv
+export const allPanch = (state: RootState) => state.punch.allPanch
 export const punchLoading = (state: RootState) => state.punch.loading
 
 export default punchSlice.reducer
