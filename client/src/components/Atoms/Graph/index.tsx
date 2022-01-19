@@ -11,7 +11,16 @@ import {
 import type * as Chart from 'chart.js'
 import { FIXME } from '../../../types/Any'
 import { Color } from '../../../styles/Variables'
-
+import { PunchType } from '../../../types/Punch.Type'
+import { useEffect, useState } from 'react'
+import { Box } from '@mui/system'
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material'
 // interface Props {
 //   data: Chart.ChartData | ((canvas: HTMLCanvasElement) => Chart.ChartData)
 //   options?: Chart.ChartOptions
@@ -19,9 +28,17 @@ import { Color } from '../../../styles/Variables'
 
 interface Props {
   daysOfWork: number[]
+  respons: FIXME
 }
 
-export const Graph: React.FC<Props> = ({ daysOfWork }: Props) => {
+export const Graph: React.FC<Props> = ({ daysOfWork, respons }: Props) => {
+  const [date, setDate] = useState(new Date())
+  const [year, setYear] = useState<FIXME>(date.getFullYear())
+  const handleChange = (e: SelectChangeEvent) => {
+    setYear(e.target.value as string)
+  }
+  const daysOfWorkArr = []
+
   const options = {
     legend: {
       display: true, // label 보이기 여부
@@ -38,7 +55,15 @@ export const Graph: React.FC<Props> = ({ daysOfWork }: Props) => {
     },
     // false : 사용자 정의 크기에 따라 그래프 크기가 결정됨.
     // true : 크기가 알아서 결정됨.
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
+  }
+  for (let i: FIXME = 1; i < 13; i++) {
+    i = i < 10 ? `0${i}` : `${i}`
+    const res =
+      respons &&
+      respons.filter((v: PunchType) => `${v.date}` === `${year}-${i}`)
+    daysOfWorkArr.push(res.length)
+    console.log(daysOfWorkArr)
   }
   const data = {
     labels: [
@@ -57,15 +82,35 @@ export const Graph: React.FC<Props> = ({ daysOfWork }: Props) => {
     ],
     datasets: [
       {
-        label: '2021出勤日数',
+        label: `${year}年度出勤日数`,
         backgroundColor: `${Color.blue}`,
         borderColor: 'rgba(75,192,192,1)',
         borderWidth: 1,
-        data: daysOfWork,
+        data: daysOfWorkArr,
       },
     ],
   }
-  return <Bar data={data} options={options as FIXME} height={50} />
+  return (
+    <>
+      <Box sx={{ minWidth: 120, mt: 3 }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Year</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={year}
+            label="year"
+            onChange={handleChange}
+          >
+            <MenuItem value={2022}>2022</MenuItem>
+            <MenuItem value={2021}>2021</MenuItem>
+            <MenuItem value={2020}>2020</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <Bar data={data} options={options as FIXME} />
+    </>
+  )
 }
 
 export default Graph
