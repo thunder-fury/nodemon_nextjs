@@ -74,8 +74,9 @@ const punchGet = (app) => {
 const currentUserAllPunch = (app) => {
   app.get(`/api/allpunch/:id`, (req, res) => {
     const id = parseInt(req.params.id, 10)
-    const sql = `SELECT * FROM punch WHERE member_id = ${id}`
+    const sql = `SELECT *,DATE_FORMAT(date, '%Y-%m') date FROM punch WHERE member_id = ${id}`
     database().query(sql ,(error, results, fields) => {
+      console.log(results)
       res.status(200).send({
         status: 200,
         success_messge : `success`,
