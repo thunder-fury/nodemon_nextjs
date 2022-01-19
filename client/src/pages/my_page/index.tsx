@@ -7,10 +7,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Graph from '../../components/Atoms/Graph'
 import { masterRes } from '../../stores/slices/masterSlice'
+import {
+  fetchAsyncCurrentUserAllPunch,
+  punchList,
+  allPanch,
+} from '../../stores/slices/punchSlice'
 import { fetchAsyncProfileUpdate } from '../../stores/slices/signupSlice'
 import { FIXME } from '../../types/Any'
 import { getSesstion } from '../../utils/Sesstion'
@@ -21,9 +26,8 @@ const MyPage = () => {
   const [val, setVal] = useState<string>(``)
   const { respons } = _masterRes
   const dispatch = useDispatch()
-  const data = {
-    file: image[0],
-  }
+  const _punchList = useSelector(punchList)
+  const _allPanch = useSelector(allPanch)
   const onSubmitHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const formData = new FormData()
@@ -32,6 +36,10 @@ const MyPage = () => {
     formData.append(`member_id`, memberId)
     dispatch(fetchAsyncProfileUpdate(formData))
   }
+  useEffect(() => {
+    const memberId: FIXME = getSesstion(`member_id`)
+    dispatch(fetchAsyncCurrentUserAllPunch(memberId))
+  }, [])
   return (
     <Container
       sx={{
@@ -43,38 +51,21 @@ const MyPage = () => {
       }}
     >
       <Box sx={{ mt: 2 }}>
-        <Box sx={{ display: `flex` }}>
-          <TextField
-            type={`file`}
-            name={`file`}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setImage(e.target.files)
-            }
-          />
-          <Button
-            size={`large`}
-            color={`primary`}
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-              onSubmitHandler(e)
-            }
-          >
-            イメージ変更
-          </Button>
-        </Box>
-        <Typography variant={`h3`}>Profile</Typography>
+        {/* <Typography variant={`h3`}>Profile</Typography> */}
         <Box sx={{ display: `center`, justifyContent: `center` }}>
           <Avatar
             alt="Woo"
             src={respons && respons[0]?.image}
             sx={{ width: 70, height: 70 }}
           />
+          {respons && respons[0]?.user_name}
         </Box>
-        user email:{respons && respons[0]?.email}
+        {/* user email:{respons && respons[0]?.email}
         <br />
-        user name:{respons && respons[0]?.user_name}
+        user name:{respons && respons[0]?.user_name} */}
       </Box>
-      <Box sx={{ width: `100%`, height: 200 }}>
-        <Graph daysOfWork={[1]} />
+      <Box sx={{ width: `100%`, mt: 3 }}>
+        <Graph respons={_allPanch && _allPanch} daysOfWork={[1]} />
       </Box>
     </Container>
   )

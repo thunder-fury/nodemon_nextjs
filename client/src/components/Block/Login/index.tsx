@@ -4,13 +4,6 @@ import {
   Button,
   ButtonGroup,
   Card,
-  CardHeader,
-  FilledInput,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
   TextField,
   Typography,
 } from '@mui/material'
@@ -62,7 +55,7 @@ export const LoginBlock = () => {
       {status && <ModalGrid res={_loginRes} setVal={setVal} />}
       <Loading open={_loginLoading} />
       <Box display={`flex`} justifyContent={`center`}>
-        <Card sx={{ padding: 3 }}>
+        <Card sx={{ padding: 3 }} elevation={24}>
           <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
             Log in to your account
           </Typography>

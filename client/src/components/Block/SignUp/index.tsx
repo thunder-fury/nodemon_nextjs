@@ -44,7 +44,7 @@ export const SignUpBlock = () => {
       {_signupLoading && <CircularProgress />}
       {status && <ModalGrid res={_signupRes} setVal={setVal} />}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Card sx={{ padding: 3 }}>
+        <Card sx={{ padding: 3 }} elevation={24}>
           <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
             SignUp
           </Typography>

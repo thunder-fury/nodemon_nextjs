@@ -33,6 +33,7 @@ const signupSlice = createSlice({
     role: ``,
     userName: ``,
     res: {} as FIXME,
+    updateRes: {} as FIXME,
   },
   reducers: {
     setVal: (state: FIXME, action) => {
@@ -65,12 +66,13 @@ const signupSlice = createSlice({
     })
     builder.addCase(fetchAsyncProfileUpdate.fulfilled, (state, action) => {
       if (action.payload.status === 200) {
-        state.res = action.payload
+        console.log(action.payload)
+        state.updateRes = action.payload
         // Router.push(`/login`)
       } else if (action.payload.status === 500) {
-        state.res = action.payload
+        state.updateRes = action.payload
       } else {
-        state.res = action.payload
+        state.updateRes = action.payload
       }
       state.loading = false
     })
@@ -81,6 +83,7 @@ export const { setVal } = signupSlice.actions
 
 export const signupMaster = (state: RootState) => state.login
 export const signupRes = (state: RootState) => state.signup.res
+export const updateRes = (state: RootState) => state.signup.updateRes
 export const signupLoading = (state: RootState) => state.signup.loading
 
 export default signupSlice.reducer

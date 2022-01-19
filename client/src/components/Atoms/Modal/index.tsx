@@ -16,8 +16,11 @@ interface Props {
   res: FIXME
   setVal: FIXME
 }
+import Router, { useRouter } from 'next/router'
 const ModalGrid: React.FC<Props> = ({ res, setVal }: Props) => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const pathName = router.pathname
   const { error_messge, success_messge, status }: FIXME = res
   const rootRef = useRef(null)
   const [open, setOpen] = useState(false)
@@ -25,6 +28,7 @@ const ModalGrid: React.FC<Props> = ({ res, setVal }: Props) => {
   useEffect(() => {
     error_messge && toggle()
   }, [setOpen])
+  console.log(open)
   return (
     <>
       <Modal
@@ -71,7 +75,7 @@ const ModalGrid: React.FC<Props> = ({ res, setVal }: Props) => {
                 Close
               </Button>
             )}
-            {success_messge && (
+            {pathName === `login` && success_messge ? (
               <Button
                 color={`success`}
                 onClick={() => {
@@ -80,6 +84,13 @@ const ModalGrid: React.FC<Props> = ({ res, setVal }: Props) => {
                 }}
               >
                 Login
+              </Button>
+            ) : (
+              <Button
+                color={`success`}
+                onClick={() => dispatch(setVal({ key: `res`, value: `` }))}
+              >
+                close
               </Button>
             )}
           </ButtonGroup>
