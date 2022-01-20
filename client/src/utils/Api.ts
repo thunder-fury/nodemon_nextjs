@@ -133,29 +133,27 @@ export const FetchPut = (
     })
 }
 
-// export const FetchPut = (
-//   endPoint: string,
-//   posts: { [key: string]: string | number },
-//   token?: string
-// ): Promise<FIXME> => {
-//   const method = `PUT`
-//   const headers: FIXME = token ? {
-//     'Accept': 'application/json',
-//     'Content-Type': 'application/json',
-//     Authorization: `Bearer ${token}`,
-//   } : {
-//     'Accept': 'application/json',
-//     'Content-Type': 'application/json',
-//   }
-//   const body = JSON.stringify(posts)
-//   return fetch(endPoint, { method, headers, body })
-//     .then(res => {
-//       return res.json()
-//     })
-//     .then(json => {
-//       return json
-//     })
-//     .catch(error => {
-//       console.log(error)
-//     })
-// }
+export const FetchFormDataPut = (
+  fetchInfo: {
+    endPoint: string,
+    formData?: FIXME,
+    token?: FIXME
+  }
+): Promise<FIXME> => {
+  const { endPoint, token, formData } = fetchInfo
+  const method = `PUT`
+  const headers: FIXME = {
+    Authorization: `Bearer ${token ? token : getSesstion(`token`)}`
+  }
+  const body: FIXME = formData
+  return fetch(endPoint, { method, headers, body })
+    .then(res => {
+      return res.json()
+    })
+    .then(json => {
+      return json
+    })
+    .catch(error => {
+      console.log(error)
+    })
+}

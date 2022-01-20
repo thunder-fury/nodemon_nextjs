@@ -4,7 +4,7 @@ import Router from 'next/router'
 
 import { FIXME } from '../../types/Any'
 import { addSesstion, getSesstion, removeSesstion } from '../../utils/Sesstion'
-import { FetchFormDataPost, FetchPost } from '../../utils/Api'
+import { FetchFormDataPost, FetchPost, FetchFormDataPut } from '../../utils/Api'
 
 export const fetchAsyncSignup = createAsyncThunk(
   'signup/post',
@@ -17,7 +17,7 @@ export const fetchAsyncSignup = createAsyncThunk(
 export const fetchAsyncProfileUpdate = createAsyncThunk(
   `profile/post`,
   async (formData: FIXME) => {
-    const res = await FetchFormDataPost({
+    const res = await FetchFormDataPut({
       endPoint: `/api/profile_update`,
       formData,
     })

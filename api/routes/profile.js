@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
 const uploadWithOriginalFilename = multer({ storage: storage });
 
 const profile = (app) => {
-  app.post(
+  app.put(
     `/api/profile_update`,
     uploadWithOriginalFilename.single('image'),
     (req, res) => {
