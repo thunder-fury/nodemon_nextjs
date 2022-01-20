@@ -104,20 +104,23 @@ export const FetchFormDataPost = (
 }
 
 export const FetchPut = (
-  endPoint: string,
-  posts: { [key: string]: string | number },
-  token?: string
+  fetchInfo: {
+    endPoint: string,
+    data?: { [key: string]: string | number },
+    token?: FIXME
+  }
 ): Promise<FIXME> => {
+  const { endPoint, token, data } = fetchInfo
   const method = `PUT`
   const headers: FIXME = token ? {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${token ? token : getSesstion(`token`)}`
   } : {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   }
-  const body = JSON.stringify(posts)
+  const body = data ? JSON.stringify(data) : null
   return fetch(endPoint, { method, headers, body })
     .then(res => {
       return res.json()
@@ -129,3 +132,30 @@ export const FetchPut = (
       console.log(error)
     })
 }
+
+// export const FetchPut = (
+//   endPoint: string,
+//   posts: { [key: string]: string | number },
+//   token?: string
+// ): Promise<FIXME> => {
+//   const method = `PUT`
+//   const headers: FIXME = token ? {
+//     'Accept': 'application/json',
+//     'Content-Type': 'application/json',
+//     Authorization: `Bearer ${token}`,
+//   } : {
+//     'Accept': 'application/json',
+//     'Content-Type': 'application/json',
+//   }
+//   const body = JSON.stringify(posts)
+//   return fetch(endPoint, { method, headers, body })
+//     .then(res => {
+//       return res.json()
+//     })
+//     .then(json => {
+//       return json
+//     })
+//     .catch(error => {
+//       console.log(error)
+//     })
+// }
