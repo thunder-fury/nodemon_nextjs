@@ -212,9 +212,9 @@ const Header = () => {
         </List>
         <Divider />
       </Drawer>
-      <Main open={open}>
+      {/* <Main open={open}>
         <DrawerHeader />
-      </Main>
+      </Main> */}
     </Box>
   )
 }

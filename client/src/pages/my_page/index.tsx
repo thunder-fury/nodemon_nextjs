@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Graph from '../../components/Atoms/Graph'
@@ -22,24 +23,24 @@ import { getSesstion } from '../../utils/Sesstion'
 
 const MyPage = () => {
   const _masterRes = useSelector(masterRes)
+  const date = new Date()
   const [image, setImage] = useState<FIXME>(``)
   const [val, setVal] = useState<string>(``)
   const { respons } = _masterRes
   const dispatch = useDispatch()
   const _punchList = useSelector(punchList)
   const _allPanch = useSelector(allPanch)
-  const onSubmitHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    const formData = new FormData()
-    const memberId: FIXME = getSesstion(`member_id`)
-    formData.append(`image`, image[0])
-    formData.append(`member_id`, memberId)
-    dispatch(fetchAsyncProfileUpdate(formData))
-  }
+
   useEffect(() => {
     const memberId: FIXME = getSesstion(`member_id`)
     dispatch(fetchAsyncCurrentUserAllPunch(memberId))
   }, [])
+
+  // const dur1 = moment.duration('11:11:10')
+  // const dur2 = moment.duration({ hours: 11, minutes: 11, seconds: 10 })
+  // console.log(dur1.seconds()) //10
+  // console.log(date.getTime())
+  // console.log(dur1.asSeconds()) //40270
   return (
     <Container
       sx={{

@@ -13,6 +13,7 @@ import {
   masterRes,
 } from '../../stores/slices/masterSlice'
 import Footer from '../common/footer'
+import { Container } from '@mui/material'
 
 // const Loading = dynamic(() => import("../../../components/Modules/Loading"), {
 //   ssr: false,
@@ -49,16 +50,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {pathName !== `/login` && pathName !== `/signup` && <Header />}
-      <div css={content.container}>{children}</div>
+      <Container sx={{ mt: 15 }}>{children}</Container>
       {pathName !== `/login` && pathName !== `/signup` && <Footer />}
     </>
   )
 }
-
-const content = {
-  container: css`
-    grid-gap: 20px;
-  `,
-}
-
 export default Layout

@@ -38,7 +38,6 @@ export const Graph: React.FC<Props> = ({ daysOfWork, respons }: Props) => {
     setYear(e.target.value as string)
   }
   const daysOfWorkArr = []
-
   const options = {
     legend: {
       display: true, // label 보이기 여부
@@ -63,7 +62,6 @@ export const Graph: React.FC<Props> = ({ daysOfWork, respons }: Props) => {
       respons &&
       respons.filter((v: PunchType) => `${v.date}` === `${year}-${i}`)
     daysOfWorkArr.push(res.length)
-    console.log(daysOfWorkArr)
   }
   const data = {
     labels: [
