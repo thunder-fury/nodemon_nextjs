@@ -17,6 +17,7 @@ import {
   setVal,
   punchList,
   punchLoading,
+  fetchAsyncPunchUpdate,
 } from '../../../stores/slices/punchSlice'
 import { dateFormat } from '../../../utils/format'
 import IntegrationNotistack from '../SuccessSnackbar'
@@ -70,7 +71,7 @@ const DigitalClock = () => {
         member_id: getSesstion(`member_id`),
         note,
       }
-      dispatch(fetchAsyncPunchPost(attendance))
+      dispatch(fetchAsyncPunchUpdate(attendance))
     },
   }
   return (

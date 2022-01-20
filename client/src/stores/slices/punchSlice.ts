@@ -39,6 +39,18 @@ export const fetchAsyncPunchPost = createAsyncThunk(
   }
 )
 
+export const fetchAsyncPunchUpdate = createAsyncThunk(
+  'punch/put',
+  async (data: FIXME) => {
+    const res = await FetchPost({
+      endPoint: `/api/punch`,
+      data,
+      token: getSesstion(`token`),
+    })
+    return res
+  }
+)
+
 const punchSlice = createSlice({
   name: `punch`,
   initialState: {
@@ -82,6 +94,7 @@ const punchSlice = createSlice({
       }
       state.loading = false
     })
+
     builder.addCase(fetchAsyncPunchPost.pending, (state) => {
       state.loading = true
     })
@@ -98,6 +111,24 @@ const punchSlice = createSlice({
       }
       state.loading = false
     })
+
+    builder.addCase(fetchAsyncPunchUpdate.pending, (state) => {
+      state.loading = true
+    })
+    builder.addCase(fetchAsyncPunchUpdate.rejected, (state) => {
+      state.loading = false
+    })
+    builder.addCase(fetchAsyncPunchUpdate.fulfilled, (state, action) => {
+      if (action.payload.status === 200) {
+        state.res = action.payload
+      } else if (action.payload.status === 500) {
+        state.res = action.payload
+      } else {
+        state.res = action.payload
+      }
+      state.loading = false
+    })
+
     builder.addCase(fetchAsyncCurrentUserAllPunch.pending, (state) => {
       state.loading = true
     })
