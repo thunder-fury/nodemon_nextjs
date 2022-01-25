@@ -1,6 +1,6 @@
 // import { ReactChildren, ReactChild } from "react";
 import Router, { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { css } from '@emotion/react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ import {
 } from '../../stores/slices/masterSlice'
 import Footer from '../common/footer'
 import { Container } from '@mui/material'
-
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles'
 // const Loading = dynamic(() => import("../../../components/Modules/Loading"), {
 //   ssr: false,
 // });
@@ -24,6 +24,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathName = router.pathname
   const [sesstion, setSesstion] = useState<string | null>(``)
   const [loading, setLoading] = useState<boolean>(false)
+  const theme = useTheme()
   useEffect(() => {
     const memberId = getSesstion(`member_id`)
     if (memberId) {
@@ -39,7 +40,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     console.log(`Route is changing is complete...`)
     setLoading(false)
   })
-  console.log(pathName)
   useEffect(() => {
     const role = getSesstion(`role`)
     pathName !== `/login` &&
@@ -47,6 +47,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       !role &&
       Router.push(`/login`)
   }, [pathName])
+
   return (
     <>
       {pathName !== `/login` && pathName !== `/signup` && <Header />}

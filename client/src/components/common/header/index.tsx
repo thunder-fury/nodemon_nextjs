@@ -27,6 +27,7 @@ import { AccountCircleTwoTone } from '@mui/icons-material'
 import { fetchAsyncLogOut } from '../../../stores/slices/loginSlice'
 import { useDispatch } from 'react-redux'
 import Link from 'next/link'
+import Router from 'next/router'
 const drawerWidth = 240
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean
@@ -136,7 +137,15 @@ const Header = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>My Page</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose
+                  Router.push(`/my_page`)
+                }}
+              >
+                My Page
+              </MenuItem>
+
               <MenuItem
                 onClick={() => {
                   handleClose()
