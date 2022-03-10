@@ -93,17 +93,25 @@ export const Graph: React.FC<Props> = ({ daysOfWork, respons }: Props) => {
       <Box sx={{ minWidth: 120, mt: 3 }}>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Year</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={year}
-            label="year"
-            onChange={handleChange}
-          >
-            <MenuItem value={2022}>2022</MenuItem>
-            <MenuItem value={2021}>2021</MenuItem>
-            <MenuItem value={2020}>2020</MenuItem>
-          </Select>
+          <Box>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={year}
+              label={`year`}
+              onChange={handleChange}
+            >
+              <MenuItem value={date.getFullYear()}>
+                {date.getFullYear()}
+              </MenuItem>
+              <MenuItem value={date.getFullYear() - 1}>
+                {date.getFullYear() - 1}
+              </MenuItem>
+              <MenuItem value={date.getFullYear() - 2}>
+                {date.getFullYear() - 2}
+              </MenuItem>
+            </Select>
+          </Box>
         </FormControl>
       </Box>
       <Bar data={data} options={options as FIXME} />
